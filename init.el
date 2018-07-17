@@ -327,6 +327,19 @@ you should place your code here."
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
+    (setq org-agenda-files '("~/gtd/"))
+    (setq org-src-fontify-natively t)
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline "~/gtd/task.org" "工作安排")
+             "* TODO [#A] %?\n  %i\n"
+             :empty-lines 1)
+            ("b" "BugList" entry (file+headline "~/gtd/buglist.org" "bug收集")
+             "* TODO [#B] %?\n  %i\n"
+             :empty-lines 1)
+            ("c" "Chrome" entry (file+headline "~/gtd/chrome.org" "GOODLINKS")
+             "* TODO [#C] %?\n  %i\n"
+             :empty-lines 1)
+            ))
   ;; (eval-after-load 'company
   ;;   '(add-to-list 'company-backends 'company-irony))
   ;; (setq company-backends-c-mode-common '((company-c-headers
