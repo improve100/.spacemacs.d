@@ -6,12 +6,23 @@
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
+  - [[#features][Features:]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
 * Description
+<<<<<<< HEAD
 This layer does wonderful things:
   - thing01
+=======
+This layer adds support for something.
+
+** Features:
+  - Autocomplete
+  - Lint
+  - Refactor
+  - ...
+>>>>>>> origin/master
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -23,6 +34,10 @@ file.
 | Key Binding | Description    |
 |-------------+----------------|
 | ~SPC x x x~ | Does thing01   |
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 # Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
 # Examples:
 # [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]

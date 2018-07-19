@@ -30,42 +30,8 @@
 ;;; Code:
 
 (defconst mcu-packages
-  '(cmake-ide (stm32 :location (recipe :fetcher github :repo "SL-RU/stm32-emacs")))
-  "The list of Lisp packages required by the mcu layer.
-
-Each entry is either:
-
-1. A symbol, which is interpreted as a package to be installed, or
-
-2. A list of the form (PACKAGE KEYS...), where PACKAGE is the
-    name of the package to be installed or loaded, and KEYS are
-    any number of keyword-value-pairs.
-
-    The following keys are accepted:
-
-    - :excluded (t or nil): Prevent the package from being loaded
-      if value is non-nil
-
-    - :location: Specify a custom installation location.
-      The following values are legal:
-
-      - The symbol `elpa' (default) means PACKAGE will be
-        installed using the Emacs package manager.
-
-      - The symbol `local' directs Spacemacs to load the file at
-        `./local/PACKAGE/PACKAGE.el'
-
-      - A list beginning with the symbol `recipe' is a melpa
-        recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+  '((stm32 :location (recipe :fetcher github :repo "SL-RU/stm32-emacs"))))
 (defun mcu/init-stm32 ()
   (use-package stm32)
   )
-(defun mcu/init-cmake-ide ()
-  (use-package cmake-ide)
-  );; (defconst zilongshanren-packages
-;;   '(youdao-dictionary
-;;     (occur-mode :location built-in)
-;;     (gulpjs :location (recipe :fetcher github :repo "zilongshanren/emacs-gulpjs"))
-;;     )
-;;   )
-;;; packages.el ends here
+;; packages.el ends here
