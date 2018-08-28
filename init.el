@@ -349,7 +349,7 @@ you should place your code here."
     '(progn
        (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
   
-  (spacemacs/set-leader-keys "og" 'mynotebookgit)
+  ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "I") 'dired-kill-subdir)
 
   ;; (use-package dired-subtree :ensure t
