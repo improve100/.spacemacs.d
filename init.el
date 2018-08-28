@@ -362,7 +362,8 @@ you should place your code here."
   (add-hook 'c++-mode-hook 'company-mode)
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (add-hook 'c-mode-hook 'ycmd-mode)
-
+  (add-hook 'org-mode-hook (lambda ()
+                             (setq truncate-lines nil)))
   (setq python-shell-completion-native-enable nil)
   (eval-after-load "company"
     '(add-to-list 'company-backends 'company-anaconda))
