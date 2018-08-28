@@ -343,8 +343,15 @@ you should place your code here."
   (spacemacs/set-leader-keys "on" 'mynotes)
   (eval-after-load 'dired
     '(progn
-  ;;     (define-key dired-mode-map "i" 'dired-insert-subdir)
        (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
+  (global-set-key (kbd "K") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
+  (eval-after-load "dired"
+    '(progn
+       (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
+  
+  (spacemacs/set-leader-keys "og" 'mynotebookgit)
+  ;; (define-key dired-mode-map (kbd "I") 'dired-kill-subdir)
+
   ;; (use-package dired-subtree :ensure t
   ;;   :after dired
   ;;   :config
@@ -381,20 +388,7 @@ you should place your code here."
   ;;                                         company-ycmd
   ;;                                         company-dabbrev :with company-yasnippet)))
   (setq python-shell-completion-native-enable nil)
-  (message "hello")
-  (global-set-key (kbd "K") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
-  (eval-after-load "dired"
-    '(progn
-       (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
-  (defun mynotebookgit ()
-    (interactive)
-    (message "mynotebookgit")
-    (magit-stage-modified t)
-    (magit-commit "update")
-    )
-  (spacemacs/set-leader-keys "og" 'mynotebookgit)
-  ;; (define-key dired-mode-map (kbd "I") 'dired-kill-subdir)
-  ;; (push "~/.emacs.d/stm32/" load-path)
+   ;; (push "~/.emacs.d/stm32/" load-path)
   ;; (require 'stm32)
   )
 
