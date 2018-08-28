@@ -381,7 +381,7 @@ you should place your code here."
   ;;                                         company-ycmd
   ;;                                         company-dabbrev :with company-yasnippet)))
   (setq python-shell-completion-native-enable nil)
-
+  (message "hello")
   (global-set-key (kbd "K") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
   (eval-after-load "dired"
     '(progn
