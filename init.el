@@ -363,15 +363,16 @@ you should place your code here."
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (add-hook 'c-mode-hook 'ycmd-mode)
 
+  (setq python-shell-completion-native-enable nil)
   (eval-after-load "company"
     '(add-to-list 'company-backends 'company-anaconda))
 
   (setq ycmd-server-command '("python" "~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd/"))
   (setq ycmd-force-semantic-completion t)
 
-    (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
-    (setq org-src-fontify-natively t)
-    (setq org-capture-templates
+  (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
+  (setq org-src-fontify-natively t)
+  (setq org-capture-templates
           '(("t" "Todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
              "* TODO [#A] %?\n  %i\n"
              :empty-lines 1)
@@ -387,9 +388,6 @@ you should place your code here."
   ;; (setq company-backends-c-mode-common '((company-c-headers
   ;;                                         company-ycmd
   ;;                                         company-dabbrev :with company-yasnippet)))
-  (setq python-shell-completion-native-enable nil)
-   ;; (push "~/.emacs.d/stm32/" load-path)
-  ;; (require 'stm32)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
