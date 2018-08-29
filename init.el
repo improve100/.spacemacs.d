@@ -43,8 +43,9 @@ values."
      better-defaults
      cmake
      emacs-lisp
-     lsp
-     (python :variables python-backend 'lsp)
+     ;;lsp
+     ;;(python :variables python-backend 'lsp)
+     python
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
