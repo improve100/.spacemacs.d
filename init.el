@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
+   '(javascript
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -62,6 +63,7 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; version-control
      ;; mcu
+     ;; wiki
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -337,21 +339,32 @@ you should place your code here."
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-  ;; (spacemacs/declare-prefix "on" "notebooks")
+
+  (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
     (dired "~/SparkleShare/mynotes"))
   (spacemacs/set-leader-keys "on" 'mynotes)
-  (eval-after-load 'dired
-    '(progn
-       (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
-  (global-set-key (kbd "K") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
-  (eval-after-load "dired"
-    '(progn
-       (define-key dired-mode-map (kbd "C-i") 'dired-kill-subdir)))
+;;  (eval-after-load 'dired
+;;    '(progn
+;;       (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
+;;  (global-set-key (kbd "k") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
+;;      (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
   
+  (setq-default persp-save-dir "~/.spacemacs.d/layout/")
+  (defun load-my-layout ()
+    (interactive)
+    (persp-load-state-from-file (concat persp-save-dir "mylayout")))
+  (defun save-my-layout ()
+    (interactive)
+    (persp-save-state-to-file (concat persp-save-dir "mylayout")))
+  (spacemacs/set-leader-keys "oll" 'load-my-layout)
+  (spacemacs/set-leader-keys "oll" 'load-my-layout)
+  (spacemacs/set-leader-keys "ols" 'save-my-layout)
+  (spacemacs/set-leader-keys "ols" 'save-my-layout)
+
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
-  ;; (define-key dired-mode-map (kbd "I") 'dired-kill-subdir)
+  ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
 
   ;; (use-package dired-subtree :ensure t
   ;;   :after dired
@@ -369,20 +382,20 @@ you should place your code here."
   (eval-after-load "company"
     '(add-to-list 'company-backends 'company-anaconda))
 
-  (setq ycmd-server-command '("python" "~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd/"))
+  (setq ycmd-server-command '("python" "~/.vim/bundle/youcompleteme/third_party/ycmd/ycmd/"))
   (setq ycmd-force-semantic-completion t)
 
-  (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
+  (setq org-agenda-files '("~/Sparkleshare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
-             "* TODO [#A] %?\n  %i\n"
+          '(("t" "todo" entry (file+headline "~/Sparkleshare/mynotes/gtd/task.org" "工作安排")
+             "* todo [#a] %?\n  %i\n"
              :empty-lines 1)
-            ("b" "BugList" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
-             "* TODO [#B] %?\n  %i\n"
+            ("b" "buglist" entry (file+headline "~/Sparkleshare/mynotes/gtd/buglist.org" "bug收集")
+             "* todo [#b] %?\n  %i\n"
              :empty-lines 1)
-            ("c" "Chrome" entry (file+headline "~/SparkleShare/mynotes/gtd/chrome.org" "GOODLINKS")
-             "* TODO [#C] %?\n  %i\n"
+            ("c" "chrome" entry (file+headline "~/Sparkleshare/mynotes/gtd/chrome.org" "goodlinks")
+             "* todo [#c] %?\n  %i\n"
              :empty-lines 1)
             ))
   ;; (eval-after-load 'company
@@ -420,7 +433,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode impatient-mode simple-httpd helm-css-scss haml-mode emmet-mode company-web web-completion-data lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (json-navigator hierarchy json-mode json-snatcher json-reformat company-tern lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
