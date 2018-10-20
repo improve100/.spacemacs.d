@@ -389,13 +389,13 @@ you should place your code here."
   (setq org-src-fontify-natively t)
   (setq org-capture-templates
           '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
-             "* TODO [#a] %?\n  %i\n"
+             "* TODO [#A] %?\n  %i\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
-             "* TODO [#b] %?\n  %i\n"
+             "* TODO [#B] %?\n  %i\n"
              :empty-lines 1)
             ("c" "chrome" entry (file+headline "~/SparkleShare/mynotes/gtd/chrome.org" "goodlinks")
-             "* TODO [#c] %?\n  %i\n"
+             "* TODO [#C] %?\n  %i\n"
              :empty-lines 1)
             ))
   ;; (eval-after-load 'company
