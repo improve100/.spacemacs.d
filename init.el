@@ -388,7 +388,7 @@ you should place your code here."
   (setq org-agenda-files '("~/Sparkleshare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-capture-templates
-          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
+          '(("t" "todo entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
              "* todo [#a] %?\n  %i\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
