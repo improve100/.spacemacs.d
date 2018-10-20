@@ -385,11 +385,11 @@ you should place your code here."
   (setq ycmd-server-command '("python" "~/.vim/bundle/youcompleteme/third_party/ycmd/ycmd/"))
   (setq ycmd-force-semantic-completion t)
 
-  (setq org-agenda-files '("~/Sparkleshare/mynotes/gtd/"))
+  (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-capture-templates
           '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
-             "* todo [#a] %?\n  %i\n"
+             "* TODO [#a] %?\n  %i\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
              "* todo [#b] %?\n  %i\n"
