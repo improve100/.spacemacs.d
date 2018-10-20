@@ -388,13 +388,13 @@ you should place your code here."
   (setq org-agenda-files '("~/Sparkleshare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-capture-templates
-          '(("t" "todo" entry (file+headline "~/Sparkleshare/mynotes/gtd/task.org" "工作安排")
+          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
              "* todo [#a] %?\n  %i\n"
              :empty-lines 1)
-            ("b" "buglist" entry (file+headline "~/Sparkleshare/mynotes/gtd/buglist.org" "bug收集")
+            ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
              "* todo [#b] %?\n  %i\n"
              :empty-lines 1)
-            ("c" "chrome" entry (file+headline "~/Sparkleshare/mynotes/gtd/chrome.org" "goodlinks")
+            ("c" "chrome" entry (file+headline "~/SparkleShare/mynotes/gtd/chrome.org" "goodlinks")
              "* todo [#c] %?\n  %i\n"
              :empty-lines 1)
             ))
