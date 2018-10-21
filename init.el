@@ -339,11 +339,12 @@ you should place your code here."
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-
+  (global-set-key (kbd “C-SPC”) 'nil)
+  
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
-    (dired "~/SparkleShare/mynotes"))
+    (dired "~/sparkleshare/mynotes"))
   (spacemacs/set-leader-keys "on" 'mynotes)
 ;;  (eval-after-load 'dired
 ;;    '(progn
