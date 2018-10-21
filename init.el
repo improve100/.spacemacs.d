@@ -341,7 +341,7 @@ you should place your code here."
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
-    (dired "~/sparkleshare/mynotes"))
+    (dired "~/SparkleShare/mynotes"))
   (spacemacs/set-leader-keys "on" 'mynotes)
 ;;  (eval-after-load 'dired
 ;;    '(progn
