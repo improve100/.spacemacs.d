@@ -338,7 +338,7 @@ you should place your code here."
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
-
+  (global-set-key (kbd "C-SPC") 'nil)
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
