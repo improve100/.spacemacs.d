@@ -403,6 +403,16 @@ you should place your code here."
   ;; (setq company-backends-c-mode-common '((company-c-headers
   ;;                                         company-ycmd
   ;;                                         company-dabbrev :with company-yasnippet)))
+  ;;; custom org emhasis color
+  (require 'org)
+  (require 'cl)   ; for delete*
+  (setq org-emphasis-alist
+        (cons '("+" '(:strike-through t :foreground "gray"))
+              (delete* "+" org-emphasis-alist :key 'car :test 'equal)))
+
+  (setq org-emphasis-alist
+        (cons '("*" '(:emphasis t :foreground "red"))
+              (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
