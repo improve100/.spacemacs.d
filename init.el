@@ -60,7 +60,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; version-control
      ;; mcu
