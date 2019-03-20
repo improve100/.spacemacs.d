@@ -55,6 +55,7 @@ values."
      github
      ;; markdown
      org
+     org-brain
      yaml
      ;; (shell :variables
      ;;        shell-default-height 30
