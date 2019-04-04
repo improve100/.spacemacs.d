@@ -412,6 +412,7 @@ same directory as the org-buffer and insert a link to this file."
              "* TODO [#C] %?\n  %i\n"
              :empty-lines 1)
             ))
+  (setq org-agenda-log-mode-items '(closed clock state))
   ;; (eval-after-load 'company
   ;;   '(add-to-list 'company-backends 'company-irony))
   ;; (setq company-backends-c-mode-common '((company-c-headers
