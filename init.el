@@ -55,7 +55,6 @@ values."
      github
      ;; markdown
      org
-     org-brain
      yaml
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -430,6 +429,58 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-emphasis-alist
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
+
+;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/mail"
+        mu4e-drafts-folder "/Drafts"
+        mu4e-sent-folder   "/Sent Messages"
+        mu4e-refile-folder "/Archive"
+        mu4e-trash-folder "/Deleted Messages"
+        mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval nil
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/INBOX" . ?i)
+          ("/Sent Messages" . ?s)
+          ("/Junk" . ?j)
+          ("/Deleted Messages" . ?d)
+          ))
+ 
+  (setq mu4e-get-mail-command "offlineimap")
+ 
+  ;; something about ourselves
+  (setq user-mail-address "improve100@qq.com"
+        user-full-name  "Casey Tong"
+        mu4e-compose-signature
+        (concat
+         "Casey Tong\n"
+         "Email: improve100@qq.com\n"
+         "\n")
+        mu4e-compose-signature-auto-include t
+        )
+  ;;send mail
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.qq.com"
+        smtpmail-smtp-server "smtp.qq.com"
+        smtpmail-smtp-service 587)
+ 
+  (setq mu4e-view-show-images t)
+ 
+  ;; save attachment to my desktop (this can also be a function)
+  (setq mu4e-attachment-dir "~/Downloads")
+ 
+  ;; sync email from imap server
+  (setq mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval 300)
+  ;; notifcation
+  (setq mu4e-enable-notifications t)
+  (mu4e-alert-enable-mode-line-display)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
