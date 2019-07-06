@@ -405,13 +405,13 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
   (setq org-capture-templates
           '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
-             "* TODO [#A] %?\n  %i\n"
+             "* TODO [#A] %?\n  %i%T\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
-             "* TODO [#B] %?\n  %i\n"
+             "* TODO [#B] %?\n  %i%T\n"
              :empty-lines 1)
             ("c" "chrome" entry (file+headline "~/SparkleShare/mynotes/gtd/chrome.org" "网站收集")
-             "* TODO [#C] %?\n  %i\n"
+             "* TODO [#C] %?\n  %i%T\n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
