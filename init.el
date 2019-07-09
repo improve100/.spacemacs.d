@@ -431,7 +431,7 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
-Set up some common mu4e variables
+;; Set up some common mu4e variables
   (setq mu4e-maildir "~/mail"
         mu4e-drafts-folder "/Drafts"
         mu4e-sent-folder   "/Sent Messages"
