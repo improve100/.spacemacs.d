@@ -432,43 +432,83 @@ same directory as the org-buffer and insert a link to this file."
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
 ;;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/mail"
-        mu4e-drafts-folder "/Drafts"
-        mu4e-sent-folder   "/Sent Messages"
-        mu4e-refile-folder "/Archive"
-        mu4e-trash-folder "/Deleted Messages"
-        mu4e-get-mail-command "mbsync -a"
-        mu4e-update-interval nil
-        mu4e-compose-signature-auto-include nil
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
-  ;;; Mail directory shortcuts
-  (setq mu4e-maildir-shortcuts
-        '(("/INBOX" . ?i)
-          ("/Sent Messages" . ?s)
-          ("/Junk" . ?j)
-          ("/Deleted Messages" . ?d)
-          ))
+  ;; (setq mu4e-maildir "~/mail"
+  ;;       mu4e-drafts-folder "/Drafts"
+  ;;       mu4e-sent-folder   "/Sent Messages"
+  ;;       mu4e-refile-folder "/Archive"
+  ;;       mu4e-trash-folder "/Deleted Messages"
+  ;;       mu4e-get-mail-command "mbsync -a"
+  ;;       mu4e-update-interval nil
+  ;;       mu4e-compose-signature-auto-include nil
+  ;;       mu4e-view-show-images t
+  ;;       mu4e-view-show-addresses t)
+  ;; ;;; Mail directory shortcuts
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/INBOX" . ?i)
+  ;;         ("/Sent Messages" . ?s)
+  ;;         ("/Junk" . ?j)
+  ;;         ("/Deleted Messages" . ?d)
+  ;;         ))
  
-  (setq mu4e-get-mail-command "offlineimap")
+  ;; (setq mu4e-get-mail-command "offlineimap")
  
-  ;; something about ourselves
-  (setq user-mail-address "improve100@qq.com"
-        user-full-name  "Casey Tong"
-        mu4e-compose-signature
-        (concat
-         "Casey Tong\n"
-         "Email: improve100@qq.com\n"
-         "\n")
-        mu4e-compose-signature-auto-include t
-        )
-  ;;send mail
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.qq.com"
-        smtpmail-smtp-server "smtp.qq.com"
-        smtpmail-smtp-service 587)
+  ;; ;; something about ourselves
+  ;; (setq user-mail-address "improve100@qq.com"
+  ;;       user-full-name  "Casey Tong"
+  ;;       mu4e-compose-signature
+  ;;       (concat
+  ;;        "Casey Tong\n"
+  ;;        "Email: improve100@qq.com\n"
+  ;;        "\n")
+  ;;       mu4e-compose-signature-auto-include t
+  ;;       )
+  ;; ;;send mail
+  ;; (require 'smtpmail)
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       smtpmail-stream-type 'starttls
+  ;;       smtpmail-default-smtp-server "smtp.qq.com"
+  ;;       smtpmail-smtp-server "smtp.qq.com"
+  ;;       smtpmail-smtp-service 587)
+(defun my-mu4e-set-account ()
+  "Set the account for composing a message."
+  (let* ((account
+          (if mu4e-compose-parent-message
+              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                (string-match "/\\(.*?\\)/" maildir)
+                (match-string 1 maildir))
+            (completing-read (format "Compose with account: (%s) "
+                                     (mapconcat #'(lambda (var) (car var))
+                                                my-mu4e-account-alist "/"))
+                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                             nil t nil nil (caar my-mu4e-account-alist))))
+         (account-vars (cdr (assoc account my-mu4e-account-alist))))
+    (if account-vars
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars)
+      (error "No email account found"))))
+
+(defvar my-mu4e-account-alist
+  '(("mail"
+     (user-mail-address  "improve100@qq.net")
+     (user-full-name     "casey Tong")
+     (mu4e-sent-folder   "/mail/Sent Messages")
+     (mu4e-drafts-folder "/mail/Drafts")
+     (mu4e-trash-folder  "/mail/Deleted Messages")
+     (mu4e-refile-folder "/mail/Archive"))
+    ("msmail"
+     (user-mail-address  "tongchangjin@maxsense.ai")
+     (mu4e-sent-folder   "/msmail/Sent Messages")
+     (mu4e-drafts-folder "/msmail/Drafts")
+     (mu4e-trash-folder  "/msmail/Deleted Messages")
+     (mu4e-refile-folder "/msmail/Archive"))))
+
+(setq mu4e-user-mail-address-list
+      (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
+              my-mu4e-account-alist))
+
+;; ask for account when composing mail
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
  
   (setq mu4e-view-show-images t)
  
