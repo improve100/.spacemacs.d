@@ -469,8 +469,21 @@ same directory as the org-buffer and insert a link to this file."
   ;;       smtpmail-default-smtp-server "smtp.qq.com"
   ;;       smtpmail-smtp-server "smtp.qq.com"
   ;;       smtpmail-smtp-service 587)
+(defvar my-mu4e-account-alist
+  '(("mail"
+     (mu4e-maildir "~/mail")
+     (user-mail-address "improve100@qq.com")
+     (smtpmail-smtp-user "improve100@qq.com")
+     )
+    ("msmail"
+     (mu4e-maildir "~/msmail")
+     (user-mail-address "tongchangjin@maxsense.ai")
+     (smtpmail-smtp-user "tongchangjin@maxsense.ai")
+     ))) 
+
 (defun my-mu4e-set-account ()
   "Set the account for composing a message."
+  (interactive)
   (let* ((account
           (if mu4e-compose-parent-message
               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
@@ -488,28 +501,7 @@ same directory as the org-buffer and insert a link to this file."
               account-vars)
       (error "No email account found"))))
 
-(defvar my-mu4e-account-alist
-  '(("mail"
-     (user-mail-address  "improve100@qq.net")
-     (user-full-name     "casey Tong")
-     (mu4e-sent-folder   "/mail/Sent Messages")
-     (mu4e-drafts-folder "/mail/Drafts")
-     (mu4e-trash-folder  "/mail/Deleted Messages")
-     (mu4e-refile-folder "/mail/Archive"))
-    ("msmail"
-     (user-mail-address  "tongchangjin@maxsense.ai")
-     (mu4e-sent-folder   "/msmail/Sent Messages")
-     (mu4e-drafts-folder "/msmail/Drafts")
-     (mu4e-trash-folder  "/msmail/Deleted Messages")
-     (mu4e-refile-folder "/msmail/Archive"))))
-
-(setq mu4e-user-mail-address-list
-      (mapcar (lambda (account) (cadr (assq 'user-mail-address account)))
-              my-mu4e-account-alist))
-
-;; ask for account when composing mail
-(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
- 
+(add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account) 
   (setq mu4e-view-show-images t)
  
   ;; save attachment to my desktop (this can also be a function)
