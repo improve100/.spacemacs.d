@@ -465,11 +465,11 @@ same directory as the org-buffer and insert a link to this file."
   ;;       )
   ;;send mail
   (require 'smtpmail)
-  ;; (setq message-send-mail-function 'smtpmail-send-it
-  ;;       smtpmail-stream-type 'starttls
-  ;;       smtpmail-default-smtp-server "smtp.qq.com"
-  ;;       smtpmail-smtp-server "smtp.qq.com"
-  ;;       smtpmail-smtp-service 587)
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.qq.com"
+        smtpmail-smtp-server "smtp.qq.com"
+        smtpmail-smtp-service 587)
 (defvar my-mu4e-account-alist
   '(("mail"
      (mu4e-maildir "~/mail")
