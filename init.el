@@ -66,7 +66,7 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; version-control
      ;; mcu
-     ;; wiki
+     eaf
      graphviz
      mu4e
      gnus
@@ -471,7 +471,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;       mu4e-compose-signature-auto-include t
   ;;       )
   ;;send mail
-  (require 'eaf)
+  ;; (require 'eaf)
   (require 'smtpmail)
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-stream-type 'starttls
