@@ -66,7 +66,7 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; version-control
      ;; mcu
-     eaf
+     ;; eaf
      graphviz
      mu4e
      gnus
