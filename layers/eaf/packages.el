@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defconst eaf-packages
-  '()
+  '((eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
   "The list of Lisp packages required by the eaf layer.
 
 Each entry is either:
@@ -58,5 +58,8 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+(defun eaf/init-eaf ()
+  (use-package eaf)
+  )
 
 ;;; packages.el ends here
