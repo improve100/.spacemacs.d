@@ -30,7 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
+   '(php
+     csv
+     javascript
      html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -50,6 +52,7 @@ values."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
+     ;; imenu-list
      git
      github
      ;; markdown
@@ -59,17 +62,23 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
+     ;; syntax-checking
      (spell-checking :variables spell-checking-enable-by-default nil)
      ;; version-control
      ;; mcu
-     ;; wiki
+     ;; eaf
+     graphviz
+     mu4e
+     gnus
+     protobuf
+     gpu
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(youdao-dictionary)
+   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update)
+
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -125,7 +134,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -133,7 +142,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+                                (projects . 1))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -144,6 +153,8 @@ values."
    dotspacemacs-themes '(monokai
                          spacemacs-dark
                          spacemacs-light)
+   dotspacemacs-mode-line-theme 'spacemacs
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -338,6 +349,7 @@ you should place your code here."
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (setq create-lockfiles nil)
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
@@ -361,6 +373,19 @@ you should place your code here."
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
 
+  (defun my-org-screenshot ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (buffer-file-name)
+                    "_"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (call-process "import" nil nil nil filename)
+    (insert (concat "[[" filename "]]"))
+    (org-display-inline-images))
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
 
@@ -385,17 +410,19 @@ you should place your code here."
 
   (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
+  (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
   (setq org-capture-templates
           '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/task.org" "工作安排")
-             "* TODO [#A] %?\n  %i\n"
+             "* TODO [#A] %?\n  %i%T\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
-             "* TODO [#B] %?\n  %i\n"
+             "* TODO [#B] %?\n  %i%T\n"
              :empty-lines 1)
             ("c" "chrome" entry (file+headline "~/SparkleShare/mynotes/gtd/chrome.org" "网站收集")
-             "* TODO [#C] %?\n  %i\n"
+             "* TODO [#C] %?\n  %i%T\n"
              :empty-lines 1)
             ))
+  (setq org-agenda-log-mode-items '(closed clock state))
   ;; (eval-after-load 'company
   ;;   '(add-to-list 'company-backends 'company-irony))
   ;; (setq company-backends-c-mode-common '((company-c-headers
@@ -411,6 +438,91 @@ you should place your code here."
   (setq org-emphasis-alist
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
+
+;; Set up some common mu4e variables
+  ;; (setq mu4e-maildir "~/mail"
+  ;;       mu4e-drafts-folder "/Drafts"
+  ;;       mu4e-sent-folder   "/Sent Messages"
+  ;;       mu4e-refile-folder "/Archive"
+  ;;       mu4e-trash-folder "/Deleted Messages"
+  ;;       mu4e-get-mail-command "mbsync -a"
+  ;;       mu4e-update-interval nil
+  ;;       mu4e-compose-signature-auto-include nil
+  ;;       mu4e-view-show-images t
+  ;;       mu4e-view-show-addresses t)
+  ;; ;;; Mail directory shortcuts
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/INBOX" . ?i)
+  ;;         ("/Sent Messages" . ?s)
+  ;;         ("/Junk" . ?j)
+  ;;         ("/Deleted Messages" . ?d)
+  ;;         ))
+ 
+  ;; (setq mu4e-get-mail-command "offlineimap")
+ 
+  ;; something about ourselves
+  ;; (setq user-mail-address "improve100@qq.com"
+  ;;       user-full-name  "Casey Tong"
+  ;;       mu4e-compose-signature
+  ;;       (concat
+  ;;        "Casey Tong\n"
+  ;;        "Email: improve100@qq.com\n"
+  ;;        "\n")
+  ;;       mu4e-compose-signature-auto-include t
+  ;;       )
+  ;;send mail
+  ;; (require 'eaf)
+  (require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.qq.com"
+        smtpmail-smtp-server "smtp.qq.com"
+        smtpmail-smtp-service 587)
+(defvar my-mu4e-account-alist
+  '(("mail"
+     (mu4e-maildir "~/mail")
+     (user-mail-address "improve100@qq.com")
+     (smtpmail-smtp-user "improve100@qq.com")
+     )
+    ("msmail"
+     (mu4e-maildir "~/msmail")
+     (user-mail-address "tongchangjin@maxsense.ai")
+     (smtpmail-smtp-user "tongchangjin@maxsense.ai")
+     ))) 
+
+(defun my-mu4e-set-account ()
+  "Set the account for composing a message."
+  (interactive)
+  (let* ((account
+          (if mu4e-compose-parent-message
+              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                (string-match "/\\(.*?\\)/" maildir)
+                (match-string 1 maildir))
+            (completing-read (format "Compose with account: (%s) "
+                                     (mapconcat #'(lambda (var) (car var))
+                                                my-mu4e-account-alist "/"))
+                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                             nil t nil nil (caar my-mu4e-account-alist))))
+         (account-vars (cdr (assoc account my-mu4e-account-alist))))
+    (if account-vars
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars)
+      (error "No email account found"))))
+
+(add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account) 
+  (setq mu4e-view-show-images t)
+ 
+  ;; save attachment to my desktop (this can also be a function)
+  (setq mu4e-attachment-dir "~/Downloads")
+ 
+  ;; sync email from imap server
+  (setq mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval 300)
+  ;; notifcation
+  (setq mu4e-enable-notifications t)
+  (mu4e-alert-enable-mode-line-display)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -439,10 +551,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-window-setup (quote current-window))
  '(package-selected-packages
    (quote
-    (livid-mode skewer-mode json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern tern lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (gnu-elpa-keyring-update lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,7 +1,7 @@
-#+TITLE: confluence layer
+#+TITLE: eaf layer
 
 # The maximum height of the logo should be 200 pixels.
-[[img/confluence.png]]
+[[img/eaf.png]]
 
 # TOC links should be GitHub style anchors.
 * Table of Contents                                        :TOC_4_gh:noexport:
@@ -21,7 +21,7 @@ This layer adds support for something.
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =confluence= to the existing =dotspacemacs-configuration-layers= list in this
+add =eaf= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
 * Key bindings
