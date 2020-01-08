@@ -78,12 +78,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update smartparens :location (recipe :fetcher github :repo "Fuco1/smartparens" :commit "73b9dd0c70f381aee2da8c8b27f79019aa80dcae"))
+   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
