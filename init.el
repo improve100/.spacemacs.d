@@ -73,6 +73,9 @@ values."
      protobuf
      gpu
      chinese
+     (plantuml :variables
+               plantuml-jar-path "~/bin/plantUml.jar"
+               org-plantuml-jar-path "~/plantUml.jar"))
      (latex :variables latex-build-command "LaTeX")
      )
    ;; List of additional packages that will be installed without being
