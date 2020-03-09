@@ -57,7 +57,7 @@ values."
      github
      ;; markdown
      org
-     ycmd
+     ;; ycmd
      yaml
      ;; (shell :variables
      ;;        shell-default-height 30
