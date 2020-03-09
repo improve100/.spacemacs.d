@@ -42,7 +42,7 @@ values."
      helm
      ;; ivy
      auto-completion
-     ycmd
+     ;; ycmd
      better-defaults
      cmake
      emacs-lisp
@@ -57,6 +57,7 @@ values."
      github
      ;; markdown
      org
+     ;; ycmd
      yaml
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -73,6 +74,10 @@ values."
      protobuf
      gpu
      chinese
+     (plantuml :variables
+               plantuml-jar-path "/home/tong/bin/plantuml.jar"
+               org-plantuml-jar-path "/home/tong/bin/plantuml.jar")
+     (latex :variables latex-build-command "LaTeX")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -373,6 +378,8 @@ you should place your code here."
   (spacemacs/set-leader-keys "oll" 'load-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
+  (setq plantuml-default-exec-mode 'jar)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
   (defun my-org-screenshot ()
     "Take a screenshot into a time stamped unique-named file in the
@@ -396,6 +403,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;   (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
   (add-hook 'c++-mode-hook 'ycmd-mode)
