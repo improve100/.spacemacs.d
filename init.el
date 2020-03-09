@@ -42,7 +42,7 @@ values."
      helm
      ;; ivy
      auto-completion
-     ycmd
+     ;; ycmd
      better-defaults
      cmake
      emacs-lisp
@@ -57,6 +57,7 @@ values."
      github
      ;; markdown
      org
+     ycmd
      yaml
      ;; (shell :variables
      ;;        shell-default-height 30
