@@ -73,6 +73,7 @@ values."
      protobuf
      gpu
      chinese
+     (latex :variables latex-build-command "LaTeX"))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
