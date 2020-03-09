@@ -397,6 +397,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;   (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
   (add-hook 'c++-mode-hook 'ycmd-mode)
