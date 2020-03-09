@@ -75,8 +75,8 @@ values."
      gpu
      chinese
      (plantuml :variables
-               plantuml-jar-path "/home/tong/bin/plantUml.jar"
-               org-plantuml-jar-path "/home/tong/bin/plantUml.jar")
+               plantuml-jar-path "/home/tong/bin/plantuml.jar"
+               org-plantuml-jar-path "/home/tong/bin/plantuml.jar")
      (latex :variables latex-build-command "LaTeX")
      )
    ;; List of additional packages that will be installed without being
