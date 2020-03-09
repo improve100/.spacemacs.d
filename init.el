@@ -75,7 +75,7 @@ values."
      chinese
      (plantuml :variables
                plantuml-jar-path "~/bin/plantUml.jar"
-               org-plantuml-jar-path "~/plantUml.jar"))
+               org-plantuml-jar-path "~/plantUml.jar")
      (latex :variables latex-build-command "LaTeX")
      )
    ;; List of additional packages that will be installed without being
@@ -377,6 +377,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "oll" 'load-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
+  (setq plantuml-default-exec-mode 'jar)
 
   (defun my-org-screenshot ()
     "Take a screenshot into a time stamped unique-named file in the
