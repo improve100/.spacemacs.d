@@ -379,6 +379,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (setq plantuml-default-exec-mode 'jar)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
   (defun my-org-screenshot ()
     "Take a screenshot into a time stamped unique-named file in the
