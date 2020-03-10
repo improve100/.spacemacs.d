@@ -78,6 +78,7 @@ values."
                plantuml-jar-path "/home/tong/bin/plantuml.jar"
                org-plantuml-jar-path "/home/tong/bin/plantuml.jar")
      (latex :variables latex-build-command "LaTeX")
+     yasnippet
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
