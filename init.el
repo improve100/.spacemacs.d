@@ -84,7 +84,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update org-fragtog-mode)
+   dotspacemacs-additional-packages '(youdao-dictionary
+                                      gnu-elpa-keyring-update
+                                      (org-fragtog-mode :location (recipe :fetcher github :repo "io12/org-fragtog")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
