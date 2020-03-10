@@ -1,10 +1,10 @@
 # -*- mode: snippet -*-
-# name: #+BEGIN_SRC python
-# uuid: plotsrc
-# key: plotsrc
+# name: #+BEGIN_SRC C++
+# uuid: cppsrc
+# key: cppsrc
 # --
 
-#+begin_src python :results file
+#+BEGIN_SRC C++ :flags "-std=c++11" :results output :includes <iostream> <cmath>
 $0
-#+end_src
+#+END_SRC
 
