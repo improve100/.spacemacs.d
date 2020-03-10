@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: \[...\]
+# key: math
+# uuid: math
+# --
+\[
+$1
+\]
