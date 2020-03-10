@@ -3,6 +3,6 @@
 # key: code
 # uuid: code
 # --
-#+begin_${1:lang} ${2:options}
+\begin{lstlisting}
 $0
-#+end_$1
+\end{lstlisting}
