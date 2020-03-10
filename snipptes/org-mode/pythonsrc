@@ -1,9 +1,10 @@
 # -*- mode: snippet -*-
-# name: #+BEGIN_SRC C++
-# uuid: src
-# key: c++src
+# name: #+BEGIN_SRC python
+# uuid: pythonsrc
+# key: pythonsrc
 # --
 
-#+BEGIN_SRC C++ :flags "-std=c++11" :results output :includes <iostream> <cmath>
-`%`$0
+#+BEGIN_SRC python :results output
+$0
 #+END_SRC
+
