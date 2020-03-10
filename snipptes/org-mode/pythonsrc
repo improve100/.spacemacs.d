@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: #+BEGIN_SRC C++
+# uuid: src
+# key: c++src
+# --
+
+#+BEGIN_SRC C++ :flags "-std=c++11" :results output :includes <iostream> <cmath>
+`%`$0
+#+END_SRC
