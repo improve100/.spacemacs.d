@@ -3,9 +3,6 @@
 # uuid: src
 # key: c++src
 # --
-#+BEGIN_SRC $1
-`%`$0
-#+END_SRC
 
 #+BEGIN_SRC C++ :flags "-std=c++11" :results output :includes <iostream> <cmath>
 `%`$0
