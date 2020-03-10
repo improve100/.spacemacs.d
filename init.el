@@ -86,7 +86,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(youdao-dictionary
                                       gnu-elpa-keyring-update
-                                      (org-fragtog-mode :location (recipe :fetcher github :repo "io12/org-fragtog")))
+                                      (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
