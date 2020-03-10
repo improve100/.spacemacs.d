@@ -1,10 +1,10 @@
 # -*- mode: snippet -*-
-# name: #+BEGIN_SRC plantuml
-# uuid: umlsrc
-# key: umlsrc
+# name: #+BEGIN_SRC python
+# uuid: plotsrc
+# key: plotsrc
 # --
 
-#+BEGIN_SRC plantuml :file ./image/$1.png
+#+begin_src python :results file
 $0
-#+END_SRC  
+#+end_src
 
