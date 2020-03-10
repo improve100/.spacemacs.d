@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: partial
-# key: lpartial
-# uuid: partial
+# name: integral
+# key: linteg
+# uuid: integral
 # --
-\frac{\partial$1}{\partial $2}$0
+\int_{$1}^{$2}$0
