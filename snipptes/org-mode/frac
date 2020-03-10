@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: frac
-# key: frac
+# key: lfrac
 # uuid: frac
 # --
 \frac{${1:numerator}}{${2:denominator}}$0
