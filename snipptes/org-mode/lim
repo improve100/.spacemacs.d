@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: integral
-# key: linteg
-# uuid: integral
+# name: lim
+# key: llim
+# uuid: lim
 # --
-\int_{$1}^{$2}$0
+\lim_{{$1} \to +{$@}$0
