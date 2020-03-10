@@ -449,6 +449,10 @@ same directory as the org-buffer and insert a link to this file."
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+  (add-to-list 'load-path
+               "~/.spacemacs.d/snipptes")
+  (require 'yasnippet)
+  (yas-global-mode 1)
 ;; Set up some common mu4e variables
   ;; (setq mu4e-maildir "~/mail"
   ;;       mu4e-drafts-folder "/Drafts"
