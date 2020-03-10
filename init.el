@@ -84,7 +84,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update)
+   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update org-fragtog-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -449,6 +449,7 @@ same directory as the org-buffer and insert a link to this file."
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
   (add-to-list 'load-path
                "~/.spacemacs.d/snipptes")
   (require 'yasnippet)
