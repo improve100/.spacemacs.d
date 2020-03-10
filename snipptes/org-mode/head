@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: org-file header
-# key: head
-# uuid: head
+# key: orghead
+# uuid: orghead
 # --
 #+TITLE:     ${1:Untitled Document}
 #+AUTHOR:    ${2:`user-full-name`}
