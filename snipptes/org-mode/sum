@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: sum
+# key: lsum
+# uuid: sum
+# possible improvement, sum
+# --
+
+\sum_{$1}^{$2}$0

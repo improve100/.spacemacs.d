@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: #+BEGIN_SRC python
+# uuid: pythonsrc
+# key: pythonsrc
+# --
+
+#+BEGIN_SRC python :results output
+$0
+#+END_SRC
+

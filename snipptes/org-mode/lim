@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lim
+# key: llim
+# uuid: lim
+# --
+\lim_{{$1} \to +{$@}$0

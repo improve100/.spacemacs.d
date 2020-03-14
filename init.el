@@ -41,7 +41,8 @@ values."
      ;; ----------------------------------------------------------------
      helm
      ;; ivy
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
      ;; ycmd
      better-defaults
      cmake
@@ -83,7 +84,9 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(youdao-dictionary gnu-elpa-keyring-update)
+   dotspacemacs-additional-packages '(youdao-dictionary
+                                      gnu-elpa-keyring-update
+                                      (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -379,7 +382,6 @@ you should place your code here."
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (setq plantuml-default-exec-mode 'jar)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
   (defun my-org-screenshot ()
     "Take a screenshot into a time stamped unique-named file in the
@@ -448,6 +450,12 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
+  (add-to-list 'load-path
+               "~/.spacemacs.d/snipptes")
+  (require 'yasnippet)
+  (yas-global-mode 1)
 ;; Set up some common mu4e variables
   ;; (setq mu4e-maildir "~/mail"
   ;;       mu4e-drafts-folder "/Drafts"
