@@ -453,10 +453,9 @@ same directory as the org-buffer and insert a link to this file."
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
-  (add-to-list 'load-path
-               "~/.spacemacs.d/snipptes")
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
+  ;; (require 'yasnippet)
+  ;; (yas-global-mode 1)
 
   ;; (defun ztlevi/load-yasnippet ()
   ;;   (interactive)
