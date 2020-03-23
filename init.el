@@ -453,7 +453,7 @@ same directory as the org-buffer and insert a link to this file."
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
-  (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets"))
+  (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))
   ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
   ;; (require 'yasnippet)
   ;; (yas-global-mode 1)
