@@ -452,7 +452,7 @@ same directory as the org-buffer and insert a link to this file."
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
   (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+  ;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
 
