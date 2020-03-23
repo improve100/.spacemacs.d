@@ -456,6 +456,13 @@ same directory as the org-buffer and insert a link to this file."
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
 
+  (defun org-mode-my-init ()
+    (define-key org-mode-map (kbd "×") (kbd "*"))
+    (define-key org-mode-map (kbd "－") (kbd "-"))
+  )
+  (add-hook 'org-mode-hook 'org-mode-my-init)
+  (set-default-font "DejaVu Sans Mono 10")
+  (set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
   ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
   ;; (require 'yasnippet)
   ;; (yas-global-mode 1)
