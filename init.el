@@ -461,8 +461,13 @@ same directory as the org-buffer and insert a link to this file."
     (define-key org-mode-map (kbd "－") (kbd "-"))
   )
   (add-hook 'org-mode-hook 'org-mode-my-init)
-  (set-default-font "DejaVu Sans Mono 10")
-  (set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
+  ;; (set-default-font "DejaVu Sans Mono 10")
+  ;; (set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
+  (setq face-font-rescale-alist '(("宋体" . 1.2)
+                                  ("微软雅黑" . 1.2)
+                                  ("Microsoft Yahei" . 1.2)
+                                  ("WenQuanYi Zen Hei" . 1.2)))
+
   ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
   ;; (require 'yasnippet)
   ;; (yas-global-mode 1)
