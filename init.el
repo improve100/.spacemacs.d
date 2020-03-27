@@ -425,7 +425,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-src-fontify-natively t)
   (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
   (setq org-capture-templates
-          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/*task.org" "工作安排")
+          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/2020_task.org" "工作安排")
              "* TODO [#A] %?\n  %i%T\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
