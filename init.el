@@ -371,7 +371,7 @@ you should place your code here."
 ;;  (global-set-key (kbd "k") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
 ;;      (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
   
-  (add-to-list 'auto-mode-alist' '("\\.launch\\'" . nxml-mode))
+  (add-to-list 'auto-mode-alist' '("\\.launch$" . nxml-mode))
   (setq-default persp-save-dir "~/.spacemacs.d/layout/")
   (defun load-my-layout ()
     (interactive)
