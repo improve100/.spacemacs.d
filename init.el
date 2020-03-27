@@ -79,6 +79,7 @@ values."
                plantuml-jar-path "/home/tong/bin/plantuml.jar"
                org-plantuml-jar-path "/home/tong/bin/plantuml.jar")
      (latex :variables latex-build-command "LaTeX")
+     ;; yasnippet
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -370,6 +371,7 @@ you should place your code here."
 ;;  (global-set-key (kbd "k") '(lambda() (interactive) (execute-kbd-macro "i") (evil-ret) (evil-escape)))
 ;;      (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
   
+  (add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
   (setq-default persp-save-dir "~/.spacemacs.d/layout/")
   (defun load-my-layout ()
     (interactive)
@@ -423,7 +425,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-src-fontify-natively t)
   (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
   (setq org-capture-templates
-          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/*task.org" "工作安排")
+          '(("t" "todo" entry (file+headline "~/SparkleShare/mynotes/gtd/2020_task.org" "工作安排")
              "* TODO [#A] %?\n  %i%T\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "~/SparkleShare/mynotes/gtd/buglist.org" "bug收集")
@@ -450,12 +452,51 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
+  ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
-  (add-to-list 'load-path
-               "~/.spacemacs.d/snipptes")
-  (require 'yasnippet)
-  (yas-global-mode 1)
+  ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
+
+  (defun org-mode-my-init ()
+    (define-key org-mode-map (kbd "×") (kbd "*"))
+    (define-key org-mode-map (kbd "－") (kbd "-"))
+  )
+  (add-hook 'org-mode-hook 'org-mode-my-init)
+  ;; (set-default-font "DejaVu Sans Mono 10")
+  ;; (set-fontset-font "fontset-default" 'unicode"WenQuanYi Bitmap Song 12") ;;for linux
+  (setq face-font-rescale-alist '(("宋体" . 1.2)
+                                  ("微软雅黑" . 1.2)
+                                  ("Microsoft Yahei" . 1.2)
+                                  ("WenQuanYi Zen Hei" . 1.2)))
+
+  ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
+  ;; (require 'yasnippet)
+  ;; (yas-global-mode 1)
+
+  ;; (defun ztlevi/load-yasnippet ()
+  ;;   (interactive)
+  ;;   (unless yas-global-mode
+  ;;     (progn
+  ;;       (yas-global-mode 1)
+  ;;       (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+  ;;       (setq yas-snippet-dirs  my-snippet-dir)
+  ;;       (yas-load-directory my-snippet-dir)
+  ;;       (setq yas-wrap-around-region t)))
+  ;;   (yas-minor-mode 1))
+
+  ;; ;; remove yas-installed-snippets-dir from yas-snippet-dirs
+  ;; (with-eval-after-load 'yasnippet
+  ;;   (setq yas-snippet-dirs (remq 'yas-installed-snippets-dir yas-snippet-dirs)))
+
+  ;; (set-face-background 'secondary-selection "gray")
+  ;; (setq-default yas-prompt-functions '(yas-ido-prompt yas-dropdown-prompt))
+  ;; (mapc #'(lambda (hook) (remove-hook hook 'spacemacs/load-yasnippet)) '(prog-mode-hook
+  ;;                                                                        org-mode-hook
+  ;;                                                                        markdown-mode-hook))
+  ;; (spacemacs/add-to-hooks 'ztlevi/load-yasnippet '(prog-mode-hook
+  ;;                                                  markdown-mode-hook
+  ;;                                                  org-mode-hook))
+
 ;; Set up some common mu4e variables
   ;; (setq mu4e-maildir "~/mail"
   ;;       mu4e-drafts-folder "/Drafts"
