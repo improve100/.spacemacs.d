@@ -48,7 +48,8 @@ values."
      cmake
      emacs-lisp
      lsp
-     (python :variables python-backend 'lsp)
+     python
+     ;; (python :variables python-backend 'lsp)
      ;;(python :variables
      ;;        python-backend 'lsp
      ;;        python-lsp-server 'mspyls)
@@ -358,8 +359,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
-  ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
+  (setenv "PYTHONPATH" "~/.pyenv/shims/python")
+  (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (require 'evil)
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
@@ -413,7 +414,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  ;; (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
+  (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
   ;; (add-hook 'c++-mode-hook 'ycmd-mode)
   ;; (add-hook 'c-mode-hook 'ycmd-mode)
