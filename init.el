@@ -48,7 +48,7 @@ values."
      cmake
      emacs-lisp
      lsp
-     python
+     (python :variables python-backend 'anaconda)
      ;; (python :variables python-backend 'lsp)
      ;;(python :variables
      ;;        python-backend 'lsp
