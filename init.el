@@ -365,6 +365,7 @@ you should place your code here."
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   ;; (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer"))
+  (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
