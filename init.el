@@ -48,11 +48,12 @@ values."
      cmake
      emacs-lisp
      lsp
-     (python :variables python-backend 'anaconda)
+     ;; (python :variables python-backend 'anaconda)
      ;; (python :variables python-backend 'lsp)
-     ;;(python :variables
-     ;;        python-backend 'lsp
-     ;;        python-lsp-server 'mspyls)
+     (python :variables
+            python-backend 'lsp
+            python-lsp-server 'mspyls
+            python-lsp-git-root "~/3rdparty/python-language-server")
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-google-style t
@@ -359,9 +360,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setenv "PYTHONPATH" "~/.pyenv/shims/python")
-  (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
+  ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
+  ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (require 'evil)
+  ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
+  ;; (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer"))
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
@@ -414,13 +417,13 @@ same directory as the org-buffer and insert a link to this file."
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
+  ;; (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
   ;; (add-hook 'c++-mode-hook 'ycmd-mode)
   ;; (add-hook 'c-mode-hook 'ycmd-mode)
   (add-hook 'org-mode-hook (lambda ()
                              (setq truncate-lines nil)))
-  (setq python-shell-completion-native-enable nil)
+  ;; (setq python-shell-completion-native-enable nil)
   ;; (eval-after-load "company"
     ;; '(add-to-list 'company-backends 'company-anaconda))
 
