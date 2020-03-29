@@ -364,7 +364,7 @@ you should place your code here."
   ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
-  ;; (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/Microsoft.Python.LanguageServer"))
+  (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
   (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
