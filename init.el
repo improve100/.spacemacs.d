@@ -66,6 +66,7 @@ values."
      ;; git
      ;; github
      ;; markdown
+     dap
      org
      ;;lsp
      ;; ycmd
