@@ -30,10 +30,10 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(php
-     csv
-     javascript
-     html
+   '(javascript
+     ;; csv
+     ;; javascript
+     ;; html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -47,17 +47,24 @@ values."
      better-defaults
      cmake
      emacs-lisp
-     ;;lsp
-     ;;(python :variables python-backend 'lsp)
-     python
+     lsp
+     ;; (python :variables python-backend 'anaconda)
+     ;; (python :variables python-backend 'lsp)
+     (python :variables
+            python-backend 'lsp
+            python-lsp-server 'mspyls
+            python-lsp-git-root "~/3rdparty/python-language-server")
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t)
+            c-c++-enable-google-style t
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-enable-semantic-highlight 'rainbow)
      ;; imenu-list
-     git
-     github
+     ;; git
+     ;; github
      ;; markdown
      org
+     ;;lsp
      ;; ycmd
      yaml
      ;; (shell :variables
@@ -169,7 +176,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Ubuntu Mono"
                                :size 13
                                :weight normal
                                :width normal
@@ -354,8 +361,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
-  ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
+  (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (require 'evil)
+  ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
+  (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
+  (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
@@ -408,18 +418,18 @@ same directory as the org-buffer and insert a link to this file."
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
+  ;; (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
-  (add-hook 'c++-mode-hook 'ycmd-mode)
-  (add-hook 'c-mode-hook 'ycmd-mode)
+  ;; (add-hook 'c++-mode-hook 'ycmd-mode)
+  ;; (add-hook 'c-mode-hook 'ycmd-mode)
   (add-hook 'org-mode-hook (lambda ()
                              (setq truncate-lines nil)))
-  (setq python-shell-completion-native-enable nil)
-  (eval-after-load "company"
-    '(add-to-list 'company-backends 'company-anaconda))
+  ;; (setq python-shell-completion-native-enable nil)
+  ;; (eval-after-load "company"
+    ;; '(add-to-list 'company-backends 'company-anaconda))
 
-  (setq ycmd-server-command '("python" "~/.vim/bundle/youcompleteme/third_party/ycmd/ycmd/"))
-  (setq ycmd-force-semantic-completion t)
+  ;; (setq ycmd-server-command '("python" "~/.vim/bundle/youcompleteme/third_party/ycmd/ycmd/"))
+  ;; (setq ycmd-force-semantic-completion t)
 
   (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
@@ -599,23 +609,5 @@ same directory as the org-buffer and insert a link to this file."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (pyim pyim-basedict xr ace-pinyin lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
-)
+
+
