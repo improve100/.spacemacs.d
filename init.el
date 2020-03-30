@@ -31,7 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     php
+     ;; php
+     dash
      javascript
      ;; csv
      ;; javascript
