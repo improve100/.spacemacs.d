@@ -50,7 +50,7 @@ values."
      better-defaults
      cmake
      emacs-lisp
-     ;; lsp
+     lsp
      ;; (python :variables python-backend 'anaconda)
      ;; (python :variables python-backend 'lsp)
      (python :variables
