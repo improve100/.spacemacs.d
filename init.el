@@ -348,7 +348,7 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
    )
-  setenv "SHELL" "/bin/zsh")
+  (setenv "SHELL" "/bin/zsh")
   (exec-path-from-shell-initialize)
   )
 
