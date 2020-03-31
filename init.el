@@ -349,7 +349,7 @@ values."
    dotspacemacs-whitespace-cleanup nil
    )
   (setenv "SHELL" "/bin/zsh")
-  ;; (exec-path-from-shell-initialize)
+  (exec-path-from-shell-initialize)
   )
 
 (defun dotspacemacs/user-init ()
