@@ -70,7 +70,13 @@ values."
      ;;lsp
      ;; ycmd
      yaml
-     shell
+     ;; shell
+     (shell :variables
+            shell-default-shell 'ansi-term
+            shell-default-height 30
+            shell-default-term-shell "/bin/zsh"
+            shell-default-position 'bottom)
+
      ;; (shell :variables
      ;;        shell-command-default-term-shell "/bin/zsh"
      ;;        shell-default-height 30
@@ -99,6 +105,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(youdao-dictionary
                                       gnu-elpa-keyring-update
+                                      color-theme-solarized
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog")))
 
    ;; A list of packages that cannot be updated.
@@ -371,7 +378,7 @@ you should place your code here."
   ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
-  (spacemacs/loadenv)
+  
   (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
   (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
