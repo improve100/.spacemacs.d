@@ -371,6 +371,7 @@ you should place your code here."
   ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
+  (spacemacs/loadenv)
   (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
   (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
