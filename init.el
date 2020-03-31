@@ -347,10 +347,7 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
-   )
-  (setenv "SHELL" "/bin/zsh")
-  (exec-path-from-shell-initialize)
-  )
+   ))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -365,7 +362,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-  )
+
+  (setenv "SHELL" "/bin/zsh")
+  (exec-path-from-shell-initialize)
+)
 
 
 (defun dotspacemacs/user-config ()
