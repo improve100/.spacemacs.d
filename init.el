@@ -53,10 +53,10 @@ values."
      lsp
      ;; (python :variables python-backend 'anaconda)
      ;; (python :variables python-backend 'lsp)
-     ;; (python :variables
-     ;;        python-backend 'lsp
-     ;;        python-lsp-server 'mspyls
-     ;;        python-lsp-git-root "~/3rdparty/python-language-server")
+     (python :variables
+            python-backend 'lsp
+            python-lsp-server 'mspyls
+            python-lsp-git-root "~/3rdparty/python-language-server")
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-google-style t
