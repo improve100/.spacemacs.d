@@ -71,11 +71,11 @@ values."
      ;; ycmd
      yaml
      ;; shell
-     (shell :variables
-            shell-default-shell 'ansi-term
-            shell-default-height 30
-            shell-default-term-shell "/bin/zsh"
-            shell-default-position 'bottom)
+     ;; (shell :variables
+     ;;        shell-default-shell 'ansi-term
+     ;;        shell-default-height 30
+     ;;        shell-default-term-shell "/bin/zsh"
+     ;;        shell-default-position 'bottom)
 
      ;; (shell :variables
      ;;        shell-command-default-term-shell "/bin/zsh"
