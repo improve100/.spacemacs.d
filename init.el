@@ -71,11 +71,11 @@ values."
      ;; ycmd
      yaml
      ;; shell
-     ;; (shell :variables
-     ;;        shell-default-shell 'ansi-term
-     ;;        shell-default-height 30
-     ;;        shell-default-term-shell "/bin/zsh"
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-shell 'ansi-term
+            shell-default-height 30
+            shell-default-term-shell "/bin/zsh"
+            shell-default-position 'bottom)
 
      ;; (shell :variables
      ;;        shell-command-default-term-shell "/bin/zsh"
@@ -374,8 +374,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
-  (setenv "SHELL" "/bin/zsh")
-  (exec-path-from-shell-initialize)
+  ;; (setenv "SHELL" "/bin/zsh")
+  ;; (exec-path-from-shell-initialize)
 
   (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (setq exec-path (cons (expand-file-name "~/.pyenv/shims") exec-path))
