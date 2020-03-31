@@ -363,8 +363,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
-  (setenv "SHELL" "/bin/zsh")
-  (exec-path-from-shell-initialize)
 )
 
 
@@ -376,6 +374,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
+  (setenv "SHELL" "/bin/zsh")
+  (exec-path-from-shell-initialize)
+
   (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (setq exec-path (cons (expand-file-name "~/.pyenv/shims") exec-path))
   ;; (setq pyenv-installation-dir "~/.pyenv")
