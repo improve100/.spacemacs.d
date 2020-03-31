@@ -347,7 +347,10 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil
-   ))
+   )
+  setenv "SHELL" "/bin/zsh")
+  (exec-path-from-shell-initialize)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
