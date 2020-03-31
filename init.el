@@ -365,7 +365,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
   (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
-  (setq pyenv-installation-dir "~/.pyenv")
+  ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
