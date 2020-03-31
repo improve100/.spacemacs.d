@@ -105,7 +105,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(youdao-dictionary
                                       gnu-elpa-keyring-update
-                                      color-theme-solarized
+                                      ;; color-theme-solarized
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog")))
 
    ;; A list of packages that cannot be updated.
@@ -349,7 +349,7 @@ values."
    dotspacemacs-whitespace-cleanup nil
    )
   (setenv "SHELL" "/bin/zsh")
-  (exec-path-from-shell-initialize)
+  ;; (exec-path-from-shell-initialize)
   )
 
 (defun dotspacemacs/user-init ()
