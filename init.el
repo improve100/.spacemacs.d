@@ -70,10 +70,10 @@ values."
      ;;lsp
      ;; ycmd
      yaml
-     (shell :variables
-            shell-command-default-term-shell "/bin/zsh"
-            shell-default-height 30
-            shell-default-position 'bottom)
+     ;; (shell :variables
+     ;;        shell-command-default-term-shell "/bin/zsh"
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
      (spell-checking :variables spell-checking-enable-by-default nil)
