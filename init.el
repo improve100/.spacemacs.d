@@ -414,6 +414,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (setq plantuml-default-exec-mode 'jar)
 
+
   (defun my-org-screenshot ()
     "Take a screenshot into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
@@ -427,6 +428,8 @@ same directory as the org-buffer and insert a link to this file."
     (call-process "import" nil nil nil filename)
     (insert (concat "[[" filename "]]"))
     (org-display-inline-images))
+  (spacemacs/set-leader-keys "oc" 'my-org-screenshot)
+
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
 
