@@ -422,7 +422,7 @@ same directory as the org-buffer and insert a link to this file."
     (setq filename
           (concat
            (make-temp-name
-            (concat (format-time-string "images/")
+            (concat (format-time-string "./images/")
                     "_"
                     (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
     (call-process "import" nil nil nil filename)
