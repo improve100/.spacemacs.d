@@ -1,3 +1,5 @@
 #ignore directory or file
 .spacemacs.env
 .sparkleshare
+persp-auto-*
+/layout/persp-auto-*

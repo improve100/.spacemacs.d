@@ -6,14 +6,6 @@
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
 values."
-  (if (string= (system-name) "mingjiao")
-      (defvar plantumldir "/home/maxsense/bin/plantuml.jar")
-  (defvar plantumldir "/home/tong/bin/plantuml.jar"))
-
-  (if (string= (system-name) "mingjiao")
-      (defvar pythonlspdir "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server")
-  (defvar pythonlspdir "~/3rdparty/python-language-server"))
-
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
@@ -64,7 +56,7 @@ values."
      (python :variables
             python-backend 'lsp
             python-lsp-server 'mspyls
-            python-lsp-git-root pythonlspdir)
+            python-lsp-git-root "~/3rdparty/python-language-server")
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-google-style t
@@ -102,8 +94,8 @@ values."
      gpu
      ;; chinese
      (plantuml :variables
-               plantuml-jar-path plantumldir
-               org-plantuml-jar-path plantumldir)
+               plantuml-jar-path "/home/maxsense/bin/plantuml.jar"
+               org-plantuml-jar-path "/home/maxsense/bin/plantuml.jar")
      (latex :variables latex-build-command "LaTeX")
      ;; yasnippet
      )
@@ -395,12 +387,8 @@ you should place your code here."
   ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
-
-  (if (string= (system-name) "mingjiao")
-    (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
-  (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer")))
-
-  ;; (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
+  
+  (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
   (setq lsp-disabled-clients '(pyls))
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
