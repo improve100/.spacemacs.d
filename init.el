@@ -616,9 +616,9 @@ same directory as the org-buffer and insert a link to this file."
   (slack-register-team
    :name "emacs-slack"
    :default t
-   :client-id "my@email.address"
-   :client-secret "mypassword"
-   :token "token")
+   :client-id "939896399@qq.com"
+   :client-secret "12345678"
+   :token "xoxs-16031588581-1197342428672-1175899146085-0dcaebc635f35c01003d6d408f3ddca170d4e2d8c4c21ae60f19bf0db5329ea4")
    ;; :subscribed-channels '(general slackbot))
 ;; (defvar my-mu4e-account-alist
 ;;   '(("mail"
