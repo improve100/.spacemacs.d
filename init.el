@@ -106,6 +106,8 @@ values."
                org-plantuml-jar-path plantumldir)
      (latex :variables latex-build-command "LaTeX")
      ;; yasnippet
+     (slack :variables slack-spacemacs-layout-name "@Slack"
+            slack-spacemacs-layout-binding "s"))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -610,6 +612,14 @@ same directory as the org-buffer and insert a link to this file."
         smtpmail-default-smtp-server "smtp.qq.com"
         smtpmail-smtp-server "smtp.qq.com"
         smtpmail-smtp-service 587)
+
+  (slack-register-team
+   :name "emacs-slack"
+   :default t
+   :client-id "my@email.address"
+   :client-secret "mypassword"
+   :token "token")
+   ;; :subscribed-channels '(general slackbot))
 ;; (defvar my-mu4e-account-alist
 ;;   '(("mail"
 ;;      (mu4e-maildir "~/mail")
