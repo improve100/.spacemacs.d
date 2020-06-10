@@ -107,7 +107,7 @@ values."
      (latex :variables latex-build-command "LaTeX")
      ;; yasnippet
      (slack :variables slack-spacemacs-layout-name "@Slack"
-            slack-spacemacs-layout-binding "s"))
+            slack-spacemacs-layout-binding "s")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
