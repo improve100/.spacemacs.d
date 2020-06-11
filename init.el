@@ -511,7 +511,6 @@ same directory as the org-buffer and insert a link to this file."
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
 
-  (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
   ;; (add-hook 'org-mode-hook
             ;; (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))))
   ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
@@ -548,6 +547,7 @@ same directory as the org-buffer and insert a link to this file."
 
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
 
+  (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
 
   (defun org-mode-my-init ()
     (define-key org-mode-map (kbd "×") (kbd "*"))
