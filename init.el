@@ -499,17 +499,23 @@ same directory as the org-buffer and insert a link to this file."
 
   (setq org-default-notes-file (concat org-directory "/2020_task.org"))
   (setq org-capture-templates
-          '(("t" "todo" entry (file+headline "2020_task.org" "工作安排")
-             "* TODO [#A] %?\n  %i%T\n"
+          '(("w" "work" entry (file+headline "2020_task.org" "工作安排")
+             "* TODO %?\n"
              :empty-lines 1)
             ("b" "buglist" entry (file+headline "buglist.org" "bug收集")
-             "* TODO [#B] %?\n  %i%T\n"
+             "* TODO %?\n"
              :empty-lines 1)
             ("c" "chrome" entry (file+headline "chrome.org" "网站收集")
-             "* TODO [#C] %?\n  %i%T\n"
+             "* TODO %?\n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
+
+  (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
+  ;; (add-hook 'org-mode-hook
+            ;; (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))))
+  ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags))
   ;; (eval-after-load 'company
   ;;   '(add-to-list 'company-backends 'company-irony))
   ;; (setq company-backends-c-mode-common '((company-c-headers
@@ -527,11 +533,21 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
+  (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
   ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   (add-hook 'org-mode-hook 'valign-mode)
+  ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags)) 
+  (require 'helm-org)
+  ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
+  (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
+  ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))))
+  ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags))))
+  ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags))))
+
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
+
 
   (defun org-mode-my-init ()
     (define-key org-mode-map (kbd "×") (kbd "*"))
