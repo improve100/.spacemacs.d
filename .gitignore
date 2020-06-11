@@ -2,4 +2,5 @@
 .spacemacs.env
 .sparkleshare
 persp-auto-*
+*.swp
 /layout/persp-auto-*
