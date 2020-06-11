@@ -106,8 +106,8 @@ values."
                org-plantuml-jar-path plantumldir)
      (latex :variables latex-build-command "LaTeX")
      ;; yasnippet
-     (slack :variables slack-spacemacs-layout-name "@Slack"
-            slack-spacemacs-layout-binding "s")
+     ;; (slack :variables slack-spacemacs-layout-name "@Slack"
+            ;; slack-spacemacs-layout-binding "s")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -629,7 +629,7 @@ same directory as the org-buffer and insert a link to this file."
         smtpmail-smtp-server "smtp.qq.com"
         smtpmail-smtp-service 587)
 
-  (load (expand-file-name ".mytoken.el.gpg" dotspacemacs-directory))
+  ;; (load (expand-file-name ".mytoken.el.gpg" dotspacemacs-directory))
    ;; :subscribed-channels '(general slackbot))
 ;; (defvar my-mu4e-account-alist
 ;;   '(("mail"
