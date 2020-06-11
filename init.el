@@ -540,7 +540,7 @@ same directory as the org-buffer and insert a link to this file."
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags)) 
   (require 'helm-org)
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
-  ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
+  (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags))))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags))))
