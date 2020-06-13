@@ -538,7 +538,7 @@ same directory as the org-buffer and insert a link to this file."
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   (add-hook 'org-mode-hook 'valign-mode)
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags)) 
-  ;; (require 'helm-org)
+  (require 'helm-org)
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))))
