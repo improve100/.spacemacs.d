@@ -547,7 +547,7 @@ same directory as the org-buffer and insert a link to this file."
 
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
 
-  (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
+  ;; (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
 
   (defun org-mode-my-init ()
     (define-key org-mode-map (kbd "×") (kbd "*"))
