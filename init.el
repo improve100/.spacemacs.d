@@ -78,7 +78,7 @@ values."
      ;;lsp
      ;; ycmd
      yaml
-     shell
+     ;; shell
      ;; (shell :variables
      ;;        shell-default-shell 'vterm
      ;;        shell-default-position 'bottom)
