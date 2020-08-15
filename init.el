@@ -80,7 +80,7 @@ values."
      yaml
      ;; shell
      (shell :variables
-            shell-default-shell 'ansi-term
+            shell-default-shell 'vterm
             shell-default-height 30
             shell-default-term-shell "/bin/zsh"
             shell-default-position 'bottom)
