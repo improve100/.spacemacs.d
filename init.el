@@ -79,9 +79,9 @@ values."
      ;; ycmd
      yaml
      ;; shell
-     (shell :variables
-            shell-default-shell 'vterm
-            shell-default-position 'bottom)
+     ;; (shell :variables
+     ;;        shell-default-shell 'vterm
+     ;;        shell-default-position 'bottom)
 
      ;; (shell :variables
      ;;        shell-command-default-term-shell "/bin/zsh"
