@@ -396,6 +396,7 @@ you should place your code here."
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   ;; (require 'vterm)
+  (require 'vterm)
 
   (if (string= (system-name) "mingjiao")
     (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
