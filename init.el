@@ -41,7 +41,8 @@ values."
    '(octave
      php
      dash
-     javascript
+     ;; javascript
+     multiple-cursors
      ;; csv
      ;; javascript
      ;; html
@@ -407,6 +408,8 @@ you should place your code here."
   (evil-mode 1)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-delay 0.2)
   (setq create-lockfiles nil)
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
@@ -423,6 +426,7 @@ you should place your code here."
 ;;      (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
   
   (add-to-list 'auto-mode-alist '("\\.launch\\'" . nxml-mode))
+  (add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
   (setq-default persp-save-dir "~/.spacemacs.d/layout/")
   (defun load-my-layout ()
     (interactive)
@@ -451,6 +455,7 @@ same directory as the org-buffer and insert a link to this file."
     (insert (concat "[[" filename "]]"))
     (org-display-inline-images))
   (spacemacs/set-leader-keys "oc" 'my-org-screenshot)
+  ;; (spacemacs/set-leader-keys "cC" '(compile "catkin build --this"))
 
   (defun make-single-frame ()
     "make single frame."
@@ -461,6 +466,9 @@ same directory as the org-buffer and insert a link to this file."
 
     (delete-other-windows)
   )
+
+  (setq compile-command "catkin build --this ")
+
   (spacemacs/set-leader-keys "Fs" 'make-single-frame)
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
@@ -470,6 +478,10 @@ same directory as the org-buffer and insert a link to this file."
   ;;   :config
   ;;   (bind-key "<tab>" #'dired-subtree-toggle dired-mode-map)
   ;;   (bind-key "<backtab>" #'dired-subtree-cycle dired-mode-map))
+  ;; (setq browse-url-browser-function 'browse-url-generic
+        ;; browse-url-generic-program "chrome-browser")
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "google-chrome")
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   ;; (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
@@ -478,6 +490,10 @@ same directory as the org-buffer and insert a link to this file."
   ;; (add-hook 'c-mode-hook 'ycmd-mode)
   (add-hook 'org-mode-hook (lambda ()
                              (setq truncate-lines nil)))
+  (add-hook 'org-agenda-mode-hook
+            (lambda ()
+              (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)
+              (auto-save-mode)))
   ;; (setq python-shell-completion-native-enable nil)
   ;; (eval-after-load "company"
     ;; '(add-to-list 'company-backends 'company-anaconda))
@@ -486,16 +502,16 @@ same directory as the org-buffer and insert a link to this file."
   ;; (setq ycmd-force-semantic-completion t)
 
   (if (string= (system-name) "mingjiao")
-      (setq org-agenda-files '("/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/gtd"))
-  (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/")))
+      (setq org-agenda-files '("/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD"))
+  (setq org-agenda-files '("~/SparkleShare/mynotes/GTD")))
 
   ;; (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
 
   (if (string= (system-name) "mingjiao")
-      (setq org-directory "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/gtd")
-  (setq org-directory "~/SparkleShare/mynotes/gtd"))
+      (setq org-directory "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD")
+  (setq org-directory "~/SparkleShare/mynotes/GTD"))
 
   (setq org-default-notes-file (concat org-directory "/2020_task.org"))
   (setq org-capture-templates
@@ -511,7 +527,7 @@ same directory as the org-buffer and insert a link to this file."
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
 
-  (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
+  (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
   ;; (add-hook 'org-mode-hook
             ;; (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))))
   ;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
@@ -533,7 +549,7 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
-  (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
+  (setq org-bullets-bullet-list '("🚀" "🛪" "🚉" "⛵" "🚌" "🚔" "🚲"))
   ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
@@ -560,6 +576,13 @@ same directory as the org-buffer and insert a link to this file."
                                   ("微软雅黑" . 1.2)
                                   ("Microsoft Yahei" . 1.2)
                                   ("WenQuanYi Zen Hei" . 1.2)))
+
+  (defun kill-minibuffer ()
+    (interactive)
+    (when (windowp (active-minibuffer-window))
+      (evil-ex-search-exit)))
+
+  (add-hook 'mouse-leave-buffer-hook #'kill-minibuffer)
 
   ;; (add-to-list 'load-path "~/.spacemacs.d/snipptes")
   ;; (require 'yasnippet)
