@@ -81,9 +81,7 @@ values."
      yaml
      ;; shell
      (shell :variables
-            shell-default-shell 'ansi-term
-            shell-default-height 30
-            shell-default-term-shell "/bin/zsh"
+            shell-default-shell 'vterm
             shell-default-position 'bottom)
 
      ;; (shell :variables
@@ -398,6 +396,8 @@ you should place your code here."
   ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
+  ;; (require 'vterm)
+  (require 'vterm)
 
   (if (string= (system-name) "mingjiao")
     (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
@@ -556,14 +556,15 @@ same directory as the org-buffer and insert a link to this file."
   (add-hook 'org-mode-hook 'valign-mode)
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags)) 
   (require 'helm-org)
-  ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
-  (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
+  (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
+  ;; ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags-command))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-capture . helm-org-completing-read-tags))))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags))))
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags))))
 
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
 
+  (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
 
   (defun org-mode-my-init ()
     (define-key org-mode-map (kbd "×") (kbd "*"))
