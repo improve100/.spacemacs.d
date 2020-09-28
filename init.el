@@ -397,7 +397,7 @@ you should place your code here."
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   ;; (require 'vterm)
-  (require 'vterm)
+  ;; (require 'vterm)
 
   (if (string= (system-name) "mingjiao")
     (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
@@ -516,13 +516,19 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-default-notes-file (concat org-directory "/2020_task.org"))
   (setq org-capture-templates
           '(("w" "work" entry (file+headline "2020_task.org" "工作安排")
-             "* TODO %?\n"
+             "* TODO [#A] %? \n"
              :empty-lines 1)
-            ("b" "buglist" entry (file+headline "buglist.org" "bug收集")
-             "* TODO %?\n"
+            ("t" "tools" entry (file+headline "2020_task.org" "tools")
+             "* TODO [#B] %? \n"
              :empty-lines 1)
-            ("c" "chrome" entry (file+headline "chrome.org" "网站收集")
-             "* TODO %?\n"
+            ("l" "learning" entry (file+headline "2020_task.org" "learning")
+             "* TODO [#B] %? \n"
+             :empty-lines 1)
+            ("z" "threemen" entry (file+headline "2020_task.org" "threemen")
+             "* TODO [#B] %? \n"
+             :empty-lines 1)
+            ("o" "other" entry (file+headline "2020_task.org" "others")
+             "* TODO [#C] %? \n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
