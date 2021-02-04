@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: #+BEGIN_SRC shell
+# uuid: shellsrc
+# key: shellsrc
+# --
+
+#+BEGIN_SRC shell :results output
+#!/usr/bin/shell
+# -*- coding: utf-8 -*-
+$0
+#+END_SRC
+

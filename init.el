@@ -11,8 +11,8 @@ values."
   (defvar plantumldir "/home/tong/bin/plantuml.jar"))
 
   (if (string= (system-name) "mingjiao")
-      (defvar pythonlspdir "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server")
-  (defvar pythonlspdir "~/3rdparty/python-language-server"))
+      ;; (defvar pythonlspdir "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server")
+    (defvar pythonlspdir "~/3rdparty/python-language-server"))
 
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
@@ -45,7 +45,7 @@ values."
      multiple-cursors
      ;; csv
      ;; javascript
-     ;; html
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -59,7 +59,8 @@ values."
      better-defaults
      cmake
      emacs-lisp
-     lsp
+     (lsp :variables
+          lsp-headerline-breadcrumb-enable nil)
      ;; (python :variables python-backend 'anaconda)
      ;; (python :variables python-backend 'lsp)
      (python :variables
@@ -74,8 +75,9 @@ values."
      ;; imenu-list
      git
      ;; github
-     ;; markdown
-     org
+     (markdown :variables markdown-live-preview-engine 'vmd)
+     ;; org
+     (org :variables org-enable-roam-support t)
      ;;lsp
      ;; ycmd
      yaml
@@ -99,6 +101,7 @@ values."
      gnus
      protobuf
      gpu
+     org-roam
      ;; chinese
      (plantuml :variables
                plantuml-jar-path plantumldir
@@ -114,10 +117,12 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(youdao-dictionary
                                       gnu-elpa-keyring-update
-                                      cal-china-x
+                                      ;; cal-china-x
                                       ;; color-theme-solarized
+                                      (valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
-                                      (valign :location (recipe :fetcher github :repo "casouri/valign")))
+                                      (leanote :location (recipe :fetcher github :repo "aborn/leanote-emacs")))
+                                      ;; (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -174,7 +179,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -182,7 +187,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 1))
+                                (bookmarks . 5))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -397,11 +402,11 @@ you should place your code here."
   ;; (require 'evil)
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   ;; (require 'vterm)
-  ;; (require 'vterm)
+  ;; (require 'vterm-module)
 
   (if (string= (system-name) "mingjiao")
-    (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
-  (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer")))
+    ;; (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
+    (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer")))
 
   ;; (setq lsp-python-ms-executable (expand-file-name "~/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
   (setq lsp-disabled-clients '(pyls))
@@ -414,9 +419,10 @@ you should place your code here."
   (spacemacs/declare-prefix "on" "notebooks")
   (defun mynotes ()
     (interactive)
-    (if (string= (system-name) "mingjiao")
-        (dired "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes")
-      (dired "~/SparkleShare/mynotes")))
+    ;; (if (string= (system-name) "mingjiao")
+        ;; (dired "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes")
+      ;; (dired "~/SparkleShare/mynotes")))
+  (dired "~/SparkleShare/mynotes"))
 
   (spacemacs/set-leader-keys "on" 'mynotes)
 ;;  (eval-after-load 'dired
@@ -467,11 +473,18 @@ same directory as the org-buffer and insert a link to this file."
     (delete-other-windows)
   )
 
+  (server-start)
+  (require 'org-protocol)
+  (require 'org-roam-protocol)
+  (org-roam-server-mode 1)
+
   (setq compile-command "catkin build --this ")
 
   (spacemacs/set-leader-keys "Fs" 'make-single-frame)
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
+  (add-hook 'markdown-mode-hook 'leanote)
+  (setq leanote-api-root "https://leanote.threemen.tech/api")
 
   ;; (use-package dired-subtree :ensure t
   ;;   :after dired
@@ -501,34 +514,36 @@ same directory as the org-buffer and insert a link to this file."
   ;; (setq ycmd-server-command '("python" "~/.vim/bundle/youcompleteme/third_party/ycmd/ycmd/"))
   ;; (setq ycmd-force-semantic-completion t)
 
-  (if (string= (system-name) "mingjiao")
-      (setq org-agenda-files '("/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD"))
-  (setq org-agenda-files '("~/SparkleShare/mynotes/GTD")))
+  ;; (if (string= (system-name) "mingjiao")
+      ;; (setq org-agenda-files '("/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD"))
+  ;; (setq org-agenda-files '("~/SparkleShare/mynotes/GTD")))
+  (setq org-agenda-files '("~/SparkleShare/mynotes/GTD"))
 
   ;; (setq org-agenda-files '("~/SparkleShare/mynotes/gtd/"))
   (setq org-src-fontify-natively t)
   (setq org-todo-keywords '((sequence "TODO(t)" "DOING(i)" "|" "DONE(d)" "ABORT(a)")))
 
-  (if (string= (system-name) "mingjiao")
-      (setq org-directory "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD")
-  (setq org-directory "~/SparkleShare/mynotes/GTD"))
+  ;; (if (string= (system-name) "mingjiao")
+      ;; (setq org-directory "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes/GTD")
+  ;; (setq org-directory "~/SparkleShare/mynotes/GTD"))
+  (setq org-directory "~/SparkleShare/mynotes/GTD")
 
-  (setq org-default-notes-file (concat org-directory "/2020_task.org"))
+  (setq org-default-notes-file (concat org-directory "/task.org"))
   (setq org-capture-templates
-          '(("w" "work" entry (file+headline "2020_task.org" "工作安排")
-             "* TODO [#A] %? \n"
+          '(("w" "work" entry (file+headline "task.org" "工作安排")
+             "* TODO [#A] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("t" "tools" entry (file+headline "2020_task.org" "tools")
-             "* TODO [#B] %? \n"
+            ("t" "tools" entry (file+headline "task.org" "tools")
+             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("l" "learning" entry (file+headline "2020_task.org" "learning")
-             "* TODO [#B] %? \n"
+            ("l" "learning" entry (file+headline "task.org" "learning")
+             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("z" "threemen" entry (file+headline "2020_task.org" "threemen")
-             "* TODO [#B] %? \n"
+            ("z" "threemen" entry (file+headline "task.org" "threemen")
+             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("o" "other" entry (file+headline "2020_task.org" "others")
-             "* TODO [#C] %? \n"
+            ("o" "other" entry (file+headline "task.org" "others")
+             "* TODO [#C] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
@@ -545,8 +560,11 @@ same directory as the org-buffer and insert a link to this file."
   ;;                                         company-dabbrev :with company-yasnippet)))
   ;;; custom org emhasis color
   (require 'org)
+  (require 'org-tempo)
   (require 'cl)   ; for delete*
+  (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/valign/")
   (require 'valign)   ; for delete*
+  ;; (require 'ftable)   ; for delete*
   (setq org-emphasis-alist
         (cons '("+" '(:strike-through t :foreground "gray"))
               (delete* "+" org-emphasis-alist :key 'car :test 'equal)))
@@ -560,6 +578,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   (add-hook 'org-mode-hook 'valign-mode)
+  ;; (add-hook 'org-mode-hook 'ftable-mode)
   ;; (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags)) 
   (require 'helm-org)
   (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags . helm-org-completing-read-tags)) 
@@ -637,7 +656,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;         ("/Junk" . ?j)
   ;;         ("/Deleted Messages" . ?d)
   ;;         ))
- 
+
   ;; (setq mu4e-get-mail-command "offlineimap")
  
   ;; something about ourselves
@@ -651,7 +670,8 @@ same directory as the org-buffer and insert a link to this file."
   ;;       mu4e-compose-signature-auto-include t
   ;;       )
   ;;send mail
-  ;; (require 'eaf)
+  (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/eaf/")
+  (require 'eaf)
   (require 'smtpmail)
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-stream-type 'starttls
@@ -710,42 +730,4 @@ same directory as the org-buffer and insert a link to this file."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
 
-
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(exec-path
-   (quote
-    ("/home/tong/.pyenv/shims" "/home/tong/.local/share/umake/bin" "/home/tong/bin" "/home/tong/.local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/snap/bin" "/usr/libexec/emacs/26.3/x86_64-pc-linux-gnu")))
- '(package-selected-packages
-   (quote
-    (lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
-)

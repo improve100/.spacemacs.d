@@ -5,6 +5,10 @@
 # --
 
 #+BEGIN_SRC python :results output
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 $0
+
 #+END_SRC
 
