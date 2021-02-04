@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2020 Sylvain Benner & Contributors
 ;;
-;; Author: maxsense <maxsense@mingjiao>
+;; Author: tong <tong@QingGangJian>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -73,3 +73,5 @@
           org-roam-server-network-label-truncate t
           org-roam-server-network-label-truncate-length 60
           org-roam-server-network-label-wrap-length 20)))
+
+;;; packages.el ends here
