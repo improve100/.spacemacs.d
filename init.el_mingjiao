@@ -119,6 +119,7 @@ values."
                                       gnu-elpa-keyring-update
                                       ;; cal-china-x
                                       ;; color-theme-solarized
+                                      (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
                                       (valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
                                       (leanote :location (recipe :fetcher github :repo "aborn/leanote-emacs")))
@@ -403,6 +404,8 @@ you should place your code here."
   ;; (setq lsp-python-ms-dir (expand-file-name "~/3rdparty/python-language-server/output/bin/Release"))
   ;; (require 'vterm)
   ;; (require 'vterm-module)
+  (setq lsp-enable-indentation nil)
+  (setq lsp-enable-on-type-formatting nil)
 
   (if (string= (system-name) "mingjiao")
     ;; (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
@@ -466,9 +469,7 @@ same directory as the org-buffer and insert a link to this file."
   (defun make-single-frame ()
     "make single frame."
     (interactive)
-    (if (string= (system-name) "mingjiao")
-      (dired-other-frame "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes")
-    (dired-other-frame "~/SparkleShare/mynotes"))
+    (dired-other-frame "~")
 
     (delete-other-windows)
   )
@@ -477,6 +478,35 @@ same directory as the org-buffer and insert a link to this file."
   (require 'org-protocol)
   (require 'org-roam-protocol)
   (org-roam-server-mode 1)
+
+
+  (defun org-capture-template-goto-link ()
+    (org-capture-put :target (list 'file+headline
+                                   (nth 1 (org-capture-get :target))
+                                   (org-capture-get :annotation)))
+    (org-capture-put-target-region-and-position)
+    (widen)
+    (let ((hd (nth 2 (org-capture-get :target))))
+      (goto-char (point-min))
+      (if (re-search-forward
+           (format org-complex-heading-regexp-format (regexp-quote hd)) nil t)
+          (org-end-of-subtree)
+        (goto-char (point-max))
+        (or (bolp) (insert "\n"))
+        (insert "* " hd "\n"))))
+
+  ;; (add-to-list 'org-capture-templates '("p" "Protocol"))
+  ;; (add-to-list 'org-capture-templates
+  ;;              '("pn" "Protocol Bookmarks" entry
+  ;;                (file+headline "~/SparkleShare/mynotes/english/words.org" "Words")
+  ;;                "* %U - %:annotation %^g\n\n  %?" :empty-lines 1 :kill-buffer t))
+
+  (setq org-capture-templates
+        '(("p" "Link" entry (file+headline ~/SparkleShare/mynotes/english/words.org "Worlds")
+           "* %:annotation\n%:initial\n" :immediate-finish t :kill-buffer t)
+          ))
+
+  (add-to-list 'org-capture-templates '("p" "Protocol"))
 
   (setq compile-command "catkin build --this ")
 
@@ -531,22 +561,23 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-default-notes-file (concat org-directory "/task.org"))
   (setq org-capture-templates
           '(("w" "work" entry (file+headline "task.org" "工作安排")
-             "* TODO [#A] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             "* TODO [#A] %? \t:work:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ("t" "tools" entry (file+headline "task.org" "tools")
-             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             "* TODO [#B] %? \t:tools:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ("l" "learning" entry (file+headline "task.org" "learning")
-             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             "* TODO [#B] %? \t:learning:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ("z" "threemen" entry (file+headline "task.org" "threemen")
-             "* TODO [#B] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             "* TODO [#B] %? \t:threemen:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ("o" "other" entry (file+headline "task.org" "others")
-             "* TODO [#C] %? %^g\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             "* TODO [#C] %? \t:other:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
+
 
   (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
   ;; (add-hook 'org-mode-hook
@@ -560,6 +591,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;                                         company-dabbrev :with company-yasnippet)))
   ;;; custom org emhasis color
   (require 'org)
+  (require 'ob-async)
   (require 'org-tempo)
   (require 'cl)   ; for delete*
   (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/valign/")
@@ -725,9 +757,86 @@ same directory as the org-buffer and insert a link to this file."
 ;;   ;; notifcation
 ;;   (setq mu4e-enable-notifications t)
 ;;   (mu4e-alert-enable-mode-line-display)
+  (defun org-agenda-skip-scheduled-if-not-today ()
+    "If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+    (ignore-errors
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (scheduled-day
+             (time-to-days
+              (org-time-string-to-time
+               (org-entry-get nil "SCHEDULED"))))
+            (now (time-to-days (current-time))))
+        (and scheduled-day
+             (not (= scheduled-day now))
+             subtree-end))))
 
+  (defun org-agenda-skip-scheduled-if-not-yesterday ()
+    "If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+    (ignore-errors
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (scheduled-day
+             (time-to-days
+              (org-time-string-to-time
+               (org-entry-get nil "SCHEDULED"))))
+            (yesterday (- (time-to-days (current-time)) 1)))
+        (and scheduled-day
+             (not (= scheduled-day yesterday))
+             subtree-end))))
+
+
+  ;; (add-to-list 'org-agenda-custom-commands
+  ;;              '("0" agenda "Today's Scheduled"
+  ;;                ((org-agenda-span 'day)
+  ;;                 (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-today))
+  ;;                 (org-agenda-entry-types '(:scheduled))
+  ;;                 (org-agenda-overriding-header "Today's Scheduled "))))
+
+  ;; (add-to-list 'org-agenda-custom-commands
+  ;;               '("1" agenda "Yesterday's Scheduled"
+  ;;                 ((org-agenda-span 'day)
+  ;;                 (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-yesterday))
+  ;;                 (org-agenda-entry-types '(:scheduled))
+  ;;                 (org-agenda-overriding-header "Yesterday's Scheduled "))))
+
+  (setq org-agenda-custom-commands
+        (quote
+         (
+          ("0" agenda "Today's Scheduled"
+                          ((org-agenda-span 'day)
+                           (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-today))
+                           (org-agenda-entry-types '(:scheduled))
+                           (org-agenda-overriding-header "Today's Scheduled ")))
+          ("1" agenda "Yesterday's Scheduled"
+                          ((org-agenda-span 'day)
+                          (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-yesterday))
+                          (org-agenda-entry-types '(:scheduled))
+                          (org-agenda-overriding-header "Yesterday's Scheduled ")))
+          )))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
+ '(org-edit-src-content-indentation 0))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
