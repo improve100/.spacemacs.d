@@ -119,7 +119,6 @@ values."
                                       gnu-elpa-keyring-update
                                       ;; cal-china-x
                                       ;; color-theme-solarized
-                                      (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
                                       (valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
                                       (leanote :location (recipe :fetcher github :repo "aborn/leanote-emacs")))
@@ -180,7 +179,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   ;; dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -380,7 +379,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
-  (setq-default dotspacemacs-startup-banner '"~/Pictures/maxsense.png")
 )
 
 
@@ -470,7 +468,9 @@ same directory as the org-buffer and insert a link to this file."
   (defun make-single-frame ()
     "make single frame."
     (interactive)
-    (dired-other-frame "~")
+    (if (string= (system-name) "mingjiao")
+      (dired-other-frame "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/SparkleShare/mynotes")
+    (dired-other-frame "~/SparkleShare/mynotes"))
 
     (delete-other-windows)
   )
@@ -478,23 +478,8 @@ same directory as the org-buffer and insert a link to this file."
   (server-start)
   (require 'org-protocol)
   (require 'org-roam-protocol)
-  ;; (org-roam-server-mode 1)
-  ;; (setq org-roam-directory "~/SparkleShare/mynotes")
-  ;; (setq org-roam-v2-ack t)
-  ;; (org-roam-setup)
+  (org-roam-server-mode 1)
 
-  ;; (setq org-roam-directory (file-truename "~/SparkleShare/mynotes"))
-  ;; (setq org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
-  ;; (setq org-roam-file-extensions '("org"))
-
-  ;; (setq org-id-link-to-org-use-id t)
-
-  ;; (setq org-roam-completion-everywhere t)
-
-  ;; ;; disable V1 to V2
-  ;; (setq org-roam-v2-ack t)
-
-  ;; (org-roam-setup)
 
   (defun org-capture-template-goto-link ()
     (org-capture-put :target (list 'file+headline
@@ -607,7 +592,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;                                         company-dabbrev :with company-yasnippet)))
   ;;; custom org emhasis color
   (require 'org)
-  (require 'ob-async)
+
   (require 'org-tempo)
   (require 'cl)   ; for delete*
   (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/valign/")
@@ -847,11 +832,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bookmark-default-file "~/.spacemacs.d/bookmarks")
  '(evil-want-Y-yank-to-eol nil)
- '(org-edit-src-content-indentation 0)
- '(package-selected-packages
-   '(org-plus-contrib zeal-at-point youdao-dictionary yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe uuidgen use-package unfill undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here tagedit symon symbol-overlay string-inflection string-edit sphinx-doc spaceline-all-the-icons smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters quickrun pytest pyenv-mode py-isort pug-mode protobuf-mode prettier-js popwin poetry plantuml-mode pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets pcre2el password-generator paradox overseer orgit-forge org-superstar org-roam org-rich-yank org-projectile org-present org-pomodoro org-mime org-fragtog org-download org-cliplink opencl-mode open-junk-file ob-async nose nameless mwim multi-term multi-line monokai-theme mmm-mode markdown-toc macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-latex lorem-ipsum live-py-mode link-hint leanote indent-guide importmagic impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-dash helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag graphviz-dot-mode google-translate google-c-style golden-ratio gnuplot gnu-elpa-keyring-update glsl-mode gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md geben fuzzy font-lock+ flyspell-correct-helm flycheck-ycmd flycheck-rtags flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav editorconfig dumb-jump drupal-mode drag-stuff dotenv-mode disaster dired-quick-sort diminish define-word dap-mode cython-mode cuda-mode cpp-auto-include company-ycmd company-web company-rtags company-reftex company-phpactor company-php company-math company-c-headers company-auctex company-anaconda column-enforce-mode cmake-mode clean-aindent-mode centered-cursor-mode ccls blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
+ '(org-edit-src-content-indentation 0))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -37,41 +37,58 @@
   (use-package org-roam
     ;; :hook
     ;; (after-init . org-roam-mode)
-    :custom
-    (org-roam-directory "~/SparkleShare/mynotes")
+    :after org
+    :commands (org-roam-buffer
+               org-roam-setup
+               org-roam-capture
+               org-roam-node-find)
+    ;; :custom
+    ;; (org-roam-directory "~/SparkleShare/mynotes")
     :init
     (progn
       ;; (spacemacs/declare-prefix "aor" "org-roam")
+      (setq org-roam-directory (file-truename "~/SparkleShare/mynotes"))
+      (setq org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
+      (setq org-roam-file-extensions '("org"))
+
+      (setq org-id-link-to-org-use-id t)
+
+      (setq org-roam-completion-everywhere t)
+
+      ;; disable V1 to V2
+      (setq org-roam-v2-ack t)
+
       (spacemacs/set-leader-keys
-        "orl" 'org-roam
-        "ori" 'org-roam-insert
-        "orf" 'org-roam-find-file
+        "orl" 'org-roam-buffer-toggle
+        "ori" 'org-roam-node-insert
+        "orf" 'org-roam-node-find
         "org" 'org-roam-graph
         "orc" 'org-roam-capture)
 
       ;; (spacemacs/declare-prefix-for-mode 'org-mode "or" "org-roam")
       (spacemacs/set-leader-keys-for-major-mode 'org-mode
-        "ol" 'org-roam
+        "ol" 'org-roam-buffer-toggle
         "ot" 'org-roam-dailies-today
-        "ob" 'org-roam-switch-to-buffer
-        "of" 'org-roam-find-file
-        "oi" 'org-roam-insert
+        "of" 'org-roam-node-find
+        "oi" 'org-roam-node-insert
         "og" 'org-roam-graph
         "oc" 'org-roam-capture)
+
+      (org-roam-setup)
       )))
 
-(defun org-roam/init-org-roam-server ()
-  (use-package org-roam-server
-    :ensure t
-    :config
-    (setq org-roam-server-host "127.0.0.1"
-          org-roam-server-port 8080
-          org-roam-server-export-inline-images t
-          org-roam-server-authenticate nil
-          org-roam-server-network-poll t
-          org-roam-server-network-arrows nil
-          org-roam-server-network-label-truncate t
-          org-roam-server-network-label-truncate-length 60
-          org-roam-server-network-label-wrap-length 20)))
+;; (defun org-roam/init-org-roam-server ()
+;;   (use-package org-roam-server
+;;     :ensure t
+;;     :config
+;;     (setq org-roam-server-host "127.0.0.1"
+;;           org-roam-server-port 8080
+;;           org-roam-server-export-inline-images t
+;;           org-roam-server-authenticate nil
+;;           org-roam-server-network-poll t
+;;           org-roam-server-network-arrows nil
+;;           org-roam-server-network-label-truncate t
+;;           org-roam-server-network-label-truncate-length 60
+;;           org-roam-server-network-label-wrap-length 20)))
 
 ;;; packages.el ends here
