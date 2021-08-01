@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: le
 # group: math
-# name: \dot{...}
+# name: \le
 # --
-\dot{$1}$0
+\le $0

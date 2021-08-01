@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: kappa
 # group: math
-# name: \dot{...}
+# name: \kappa
 # --
-\dot{$1}$0
+\kappa $0

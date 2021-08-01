@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: equiv
 # group: math
-# name: \dot{...}
+# name: \equiv
 # --
-\dot{$1}$0
+\equiv $0

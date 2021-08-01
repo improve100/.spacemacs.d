@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: doteq
 # group: math
-# name: \dot{...}
+# name: \doteq
 # --
-\dot{$1}$0
+\doteq $0

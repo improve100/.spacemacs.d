@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: varphi
 # group: math
-# name: \dot{...}
+# name: \varphi
 # --
-\dot{$1}$0
+\varphi $0

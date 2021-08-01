@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: suncc
 # group: math
-# name: \dot{...}
+# name: \suncc
 # --
-\dot{$1}$0
+\suncc $0

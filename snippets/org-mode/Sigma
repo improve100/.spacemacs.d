@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: Sigma
 # group: math
-# name: \dot{...}
+# name: \Sigma
 # --
-\dot{$1}$0
+\Sigma $0

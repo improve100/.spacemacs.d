@@ -1,0 +1,64 @@
+Week-agenda (W26):
+Monday     28 June 2021 W26
+Tuesday    29 June 2021
+Wednesday  30 June 2021
+Thursday    1 July 2021
+  task:       Scheduled:  TODO [#A]  添加地库启动gpfpd数据输出                                                                  :work:
+  task:       Scheduled:  TODO [#A]  遮挡下还是75                                                                               :work:
+  task:       Scheduled:  TODO [#A] diagnostic localization ndt error gps ok msf ok total err                                   :work:
+Friday      2 July 2021
+  task:       Scheduled:  TODO [#B] shell使用emacs snippets                                                                    :tools:
+Saturday    3 July 2021
+  tools:      Sched.330x:  TODO [#A] vscode caps lock 按键提示                                                                 :tools:
+  tools:      Sched.330x:  TODO [#A] vscode 团队聊天插件                                                                       :tools:
+  2020_task:  384 d. ago:  TODO [#A] 矩阵论视频学习                                                             :PROPERTIES::learning:
+  work:       Sched.267x:  TODO [#A] 星网 M2 跑飞重新对准固件更新测试                                                           :work:
+  work:       Sched.255x:  TODO [#A] 激光雷达时间同步，再熟悉驱动                                                               :work:
+  work:       Sched.219x:  TODO [#A] rtklib 源码阅读                                                                            :work:
+  work:       Sched.194x:  TODO [#A] odometry filtered twist 速度有阶跃                                                         :work:
+  task:       Sched.134x:  TODO [#A] 组合导航测试                                                                               :work:
+  work:       211 d. ago:  TODO [#A] 再学习 voxel octree 高斯牛顿 等概念                                                        :work:
+  task:       Sched.74x:  TODO [#A] 交换星网测试
+  task:       Sched.68x:  TODO [#A] pclndt ndtomp ndtcpu算法源码分析                                                            :work:
+  task:       Sched.51x:  TODO [#A] 地库猛踩刹车车速检测异常                                                                    :work:
+  task:       Sched.46x:  TODO [#A] huace c-c 进程杀得慢                                                                        :work:
+  task:       Sched.25x:  TODO [#A] ECFF惯性坐标系局部坐标系导航坐标系转换                                                      :work:
+  task:       Sched.25x:  TODO [#A] GNSS历元解算系统知识                                                                        :work:
+  task:       Sched.25x:  TODO [#A] 惯性系四元数微分方程                                                                        :work:
+  task:       Sched.10x:  TODO [#A] open3d使用                                                                                  :work:
+  task:       Sched. 6x:  TODO [#A] 机器人状态估计视频学习                                                                      :work:
+  task:       Sched. 2x:  TODO [#A]  添加地库启动gpfpd数据输出                                                                  :work:
+  task:       Sched. 2x:  TODO [#A]  遮挡下还是75                                                                               :work:
+  task:       Sched. 2x:  TODO [#A] diagnostic localization ndt error gps ok msf ok total err                                   :work:
+  2020_task:  Sched.384x:  DOING [#B] 红宝石单词背诵                                                            :PROPERTIES::learning:
+  2020_task:  Sched.327x:  TODO [#B] 小米摄像头 rtsp 输出                                                          :PROPERTIES::tools:
+  2020_task:  384 d. ago:  TODO bootstrap 学习                                                                  :PROPERTIES::learning:
+  tools:      Sched.282x:  TODO [#B] matepad 交换 caps 和 ctrl                                                                 :tools:
+  tools:      Sched.264x:  TODO [#B] 跨平台加密文件夹，个人数据加密                                                            :tools:
+  tools:      Sched.264x:  TODO [#B] emacs 操作 confluence                                                                     :tools:
+  2020_task:  Sched.264x:  TODO [#B] <<创业从０到１>>                                                           :PROPERTIES::learning:
+  tools:      Sched.263x:  TODO [#B] 蚂蚁笔记 emacs 只能操作 md 文件                                                           :tools:
+  tools:      Sched.263x:  TODO [#B] confluence 自动化导出                                                                     :tools:
+  tools:      Sched.260x:  TODO [#B] org web server 可以实时查看 org 文珰                                                      :tools:
+  tools:      Sched.260x:  TODO [#B] 蚂蚁笔记 publish blog 功能测试，                                                          :tools:
+  tools:      Sched.260x:  TODO [#B] 蚂蚁笔记定向同步功能，                                                                    :tools:
+  tools:      Sched.260x:  TODO [#B] confluence 自动定期同步                                                                   :tools:
+  tools:      Sched.257x:  TODO [#B] markdown 官网教程https://www.markdownguide.org/getting-started/
+  2020_task:  Sched.245x:  TODO [#B] go 语言学习与蚂蚁笔记阅读                                                  :PROPERTIES::learning:
+  2020_task:  Sched.244x:  TODO [#B] 蚂蚁笔记文档整理轻量化                                                                 :threemen:
+  tools:      Sched.219x:  TODO [#B] emacs c++ refactor                                                                        :tools:
+  tools:      Sched.218x:  TODO [#B] 练习快速删除匹配括号                                                                      :tools:
+  2020_task:  Sched.215x:  TODO [#B] threemen NAS 准备                                                                      :threemen:
+  task:       Sched.181x:  TODO [#B] eaf插件编写                                                                               :tools:
+  2020_task:  Sched.180x:  TODO [#B] Linux shell 脚本学习指南                                                   :PROPERTIES::learning:
+  work:       276 d. ago:  TODO [#B] 学习 openvins https://docs.openvins.com/pages.html                                     :learning:
+  2020_task:  268 d. ago:  TODO [#B] <结构力思考>                                                               :PROPERTIES::learning:
+  task:       Sched.151x:  TODO [#B] python读写leanoteAPI操作                                                                  :tools:
+  task:       Sched.56x:  TODO [#B] android ubuntu 原始安装                                                                    :tools:
+  2020_task:  Sched.52x:  TODO [#B] 看论文                                                                      :PROPERTIES::learning:
+  task:       Sched. 8x:  TODO [#B] mu4e回车好奇怪                                                                             :tools:
+  task:       Sched. 1x:  TODO [#B] shell使用emacs snippets                                                                    :tools:
+  tools:      Sched.382x:  TODO [#C] 逛 emacs-china 论坛                                                                       :emacs:
+  2020_task:  Sched.193x:  TODO [#C] 人才落户办理                                                                               :生活:
+  task:       Sched.110x:  TODO [#C] 急躁,遇事不淡定                                                                        :learning:
+Sunday      4 July 2021

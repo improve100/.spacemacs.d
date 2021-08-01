@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: Psi
 # group: math
-# name: \dot{...}
+# name: \Psi
 # --
-\dot{$1}$0
+\Psi $0

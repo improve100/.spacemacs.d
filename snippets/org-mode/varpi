@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: varpi
 # group: math
-# name: \dot{...}
+# name: \varpi
 # --
-\dot{$1}$0
+\varpi $0

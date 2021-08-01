@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: geq
 # group: math
-# name: \dot{...}
+# name: \geq
 # --
-\dot{$1}$0
+\geq $0

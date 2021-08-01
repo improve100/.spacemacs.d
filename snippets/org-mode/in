@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: in
 # group: math
-# name: \dot{...}
+# name: \in
 # --
-\dot{$1}$0
+\in $0

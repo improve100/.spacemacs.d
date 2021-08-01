@@ -1,8 +1,6 @@
 # -*- mode: snippet -*-
-# name: latex
-# key: orglatex
-# uuid: latex
+# key: latex
+# group: math
+# name: \[ ... \]
 # --
-#+BEGIN_LaTeX
-`%`$0
-#+END_LaTeX
+\[ $1 \]$0

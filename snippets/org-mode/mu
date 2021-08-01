@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: mu
 # group: math
-# name: \dot{...}
+# name: \mu
 # --
-\dot{$1}$0
+\mu $0

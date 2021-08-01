@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: widetilde
+# group: math
+# name: \widetilde{...}
+# --
+\widetilde{$1}$0

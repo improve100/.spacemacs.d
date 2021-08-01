@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: Omicron
 # group: math
-# name: \dot{...}
+# name: \Omicron
 # --
-\dot{$1}$0
+\Omicron $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: varepsilon
+# group: math
+# name: \varepsilon
+# --
+\varepsilon $0

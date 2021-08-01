@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: succeq
 # group: math
-# name: \dot{...}
+# name: \succeq
 # --
-\dot{$1}$0
+\succeq $0

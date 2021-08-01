@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: vartheta
+# group: math
+# name: \vartheta
+# --
+\vartheta $0

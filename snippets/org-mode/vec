@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: vec
 # group: math
-# name: \dot{...}
+# name: \vec{...}
 # --
-\dot{$1}$0
+\vec{$1}$0

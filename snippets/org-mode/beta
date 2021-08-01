@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: beta
 # group: math
-# name: \dot{...}
+# name: \beta
 # --
-\dot{$1}$0
+\beta $0

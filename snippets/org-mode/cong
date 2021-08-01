@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: cong
 # group: math
-# name: \dot{...}
+# name: \cong
 # --
-\dot{$1}$0
+\cong $0

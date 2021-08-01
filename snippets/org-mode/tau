@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: tau
 # group: math
-# name: \dot{...}
+# name: \tau
 # --
-\dot{$1}$0
+\tau $0

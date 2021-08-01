@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: varsigma
+# group: math
+# name: \varsigma
+# --
+\varsigma $0

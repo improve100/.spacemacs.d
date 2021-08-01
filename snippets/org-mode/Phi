@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: Phi
 # group: math
-# name: \dot{...}
+# name: \Phi
 # --
-\dot{$1}$0
+\Phi $0

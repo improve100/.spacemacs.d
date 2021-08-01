@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: omega
 # group: math
-# name: \dot{...}
+# name: \omega
 # --
-\dot{$1}$0
+\omega $0

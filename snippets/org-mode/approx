@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: approx
 # group: math
-# name: \dot{...}
+# name: \approx
 # --
-\dot{$1}$0
+\approx $0

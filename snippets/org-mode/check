@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: check
+# group: math
+# name: \check{...}
+# --
+\check{$1}$0

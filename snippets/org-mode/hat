@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: hat
 # group: math
-# name: \dot{...}
+# name: \hat{...}
 # --
-\dot{$1}$0
+\hat{$1}$0

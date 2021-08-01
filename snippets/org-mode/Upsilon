@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: Upsilon
 # group: math
-# name: \dot{...}
+# name: \Upsilon
 # --
-\dot{$1}$0
+\Upsilon $0

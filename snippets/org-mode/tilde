@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: tilde
+# group: math
+# name: \tilde{...}
+# --
+\tilde{$1}$0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: epsilon
 # group: math
-# name: \dot{...}
+# name: \epsilon
 # --
-\dot{$1}$0
+\epsilon $0

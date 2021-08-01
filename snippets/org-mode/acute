@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: acute
+# group: math
+# name: \acute{...}
+# --
+\acute{$1}$0

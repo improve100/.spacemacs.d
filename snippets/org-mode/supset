@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: supset
 # group: math
-# name: \dot{...}
+# name: \supset
 # --
-\dot{$1}$0
+\supset $0

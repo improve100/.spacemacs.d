@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: rho
 # group: math
-# name: \dot{...}
+# name: \rho
 # --
-\dot{$1}$0
+\rho $0

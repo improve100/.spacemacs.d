@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: supseteq
+# group: math
+# name: \supseteq
+# --
+\supseteq $0

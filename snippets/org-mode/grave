@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: grave
+# group: math
+# name: \grave{...}
+# --
+\grave{$1}$0

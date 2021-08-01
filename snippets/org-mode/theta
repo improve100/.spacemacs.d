@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: dot
+# key: theta
 # group: math
-# name: \dot{...}
+# name: \theta
 # --
-\dot{$1}$0
+\theta $0
