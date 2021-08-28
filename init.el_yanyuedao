@@ -103,6 +103,7 @@ values."
      gnus
      protobuf
      gpu
+     ;; (deft :variables deft-zetteldeft t)
      org-roam
      ;; chinese
      (plantuml :variables
@@ -116,6 +117,7 @@ values."
            mu4e-enable-mode-line t
            mu4e-enable-async-operations t
            mu4e-enable-notifications t)
+     (elfeed :variables rmh-elfeed-org-files (list "~/SparkleShare/mynotes/emacs/elfeed1.org"))
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -439,6 +441,16 @@ you should place your code here."
   (dired "~/SparkleShare/mynotes"))
 
   (spacemacs/set-leader-keys "on" 'mynotes)
+  (defun simulateroamheadersearch ()
+    (interactive)
+    ;; (helm-ag-ignore-buffer-patterns '("\\.html\\'" "\\.mkd\\'"))
+    ;; (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case -G\\.org")
+    (setq helm-ag-use-agignore t)
+    (helm-do-ag "~/SparkleShare/mynotes/")
+    ;; (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+    ;; (helm-do-ag-project-root "~/SparkleShare/mynotes/")
+  )
+  (spacemacs/set-leader-keys "ors" 'simulateroamheadersearch)
 ;;  (eval-after-load 'dired
 ;;    '(progn
 ;;       (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
@@ -493,6 +505,40 @@ same directory as the org-buffer and insert a link to this file."
   (server-start)
   (require 'org-protocol)
   (require 'org-roam-protocol)
+
+
+  ;; (defun cm/deft-parse-title (file contents)
+  ;;   "Parse the given FILE and CONTENTS and determine the title.
+  ;; If `deft-use-filename-as-title' is nil, the title is taken to
+  ;; be the first non-empty line of the FILE.  Else the base name of the FILE is
+  ;; used as title."
+  ;;   (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
+	;;     (if begin
+	;;         (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
+	;;       (deft-base-filename file))))
+  
+  ;; (advice-add 'deft-parse-title :override #'cm/deft-parse-title)
+  
+  ;; (setq deft-strip-summary-regexp
+	;;       (concat "\\("
+	;; 	            "[\n\t]" ;; blank
+	;; 	            "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
+	;; 	            "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
+	;; 	            "\\)"))
+
+  ;; (setq deft-default-extension "org")
+  ;; (setq deft-directory "~/SparkleShare/mynotes")
+  ;; (setq deft-extensions '("org" "md" "txt"))
+  ;; (setq deft-recursive t)
+  ;; (setq deft-use-filename-as-title t)
+  ;; (setq deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n")
+  ;; ;; (setq deft-use-filter-string-for-filename t)
+  ;; ;; (setq deft-file-naming-rules '((noslash . "-")
+  ;;                                ;; (nospace . "-")
+  ;;                                ;; (case-fn . downcase)))
+  ;; (setq deft-text-mode 'org-mode)
+  ;; (global-set-key (kbd "C-M-S-s-d") 'deft)
+  ;; (global-set-key (kbd "C-x C-g") 'deft-find-file)
   ;; (org-roam-server-mode 1)
   ;; (setq org-roam-directory "~/SparkleShare/mynotes")
   ;; (setq org-roam-v2-ack t)
@@ -605,6 +651,9 @@ same directory as the org-buffer and insert a link to this file."
              :empty-lines 1)
             ("o" "other" entry (file+headline "task.org" "others")
              "* TODO [#C] %? \t:other:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             :empty-lines 1)
+            ("e" "email" entry (file+headline "task.org" "email")
+             "* TODO [#A] %?%a \t:email:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
@@ -753,12 +802,18 @@ same directory as the org-buffer and insert a link to this file."
   (require 'eaf)
   (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
   (require 'netease-cloud-music)
+  (require 'netease-cloud-music-ui)
   ;; (require 'smtpmail)
   ;; (setq message-send-mail-function 'smtpmail-send-it
   ;;       smtpmail-stream-type 'starttls
   ;;       smtpmail-default-smtp-server "smtp.qq.com"
   ;;       smtpmail-smtp-server "smtp.qq.com"
   ;;       smtpmail-smtp-service 587)
+  ;;store org-mode links to messages
+  (require 'org-mu4e)
+  ;;store link to message if in header view, not to header query
+  (setq org-mu4e-link-query-in-headers-mode nil)
+
   (with-eval-after-load 'mu4e-alert
     (mu4e-alert-set-default-style 'notifications)) ; For linux
 
@@ -772,6 +827,8 @@ same directory as the org-buffer and insert a link to this file."
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-stream-type 'starttls
         smtpmail-stream-type 'ssl)
+  ;; don't save message to Sent Messages, GMail/IMAP will take care of this
+  (setq mu4e-sent-messages-behavior 'delete)
 
   (setq mu4e-contexts
     `( ,(make-mu4e-context
