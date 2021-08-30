@@ -38,7 +38,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(octave
+   '(go
+     html
+     octave
      php
      dash
      ;; javascript
@@ -65,8 +67,7 @@ values."
      ;; (python :variables python-backend 'lsp)
      (python :variables
             python-backend 'lsp
-            python-lsp-server 'mspyls
-            python-lsp-git-root pythonlspdir)
+            python-lsp-server 'mspyls)
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-google-style t
@@ -76,8 +77,11 @@ values."
      git
      ;; github
      (markdown :variables markdown-live-preview-engine 'vmd)
+     ;; markdown
      ;; org
-     (org :variables org-enable-roam-support t)
+     (org :variables
+          org-enable-roam-support t
+          org-src-tab-acts-natively nil)
      ;;lsp
      ;; ycmd
      yaml
@@ -110,6 +114,10 @@ values."
      ;; yasnippet
      ;; (slack :variables slack-spacemacs-layout-name "@Slack"
             ;; slack-spacemacs-layout-binding "s")
+     (mu4e :variables mu4e-installation-path "/usr/share/Emacs/site-lisp"
+           mu4e-enable-mode-line t
+           mu4e-enable-async-operations t
+           mu4e-enable-notifications t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -117,13 +125,16 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(youdao-dictionary
                                       gnu-elpa-keyring-update
+                                      request
                                       ;; cal-china-x
                                       ;; color-theme-solarized
+                                      (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
-                                      (valign :location (recipe :fetcher github :repo "casouri/valign"))
+                                      ;;(netease-cloud-music :location (recipe :fetcher github :repo "SpringHan/netease-cloud-music.el"))
+                                      ;;(valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
-                                      (leanote :location (recipe :fetcher github :repo "aborn/leanote-emacs")))
-                                      ;; (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
+                                      (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
+                                      ;;(valign :location (recipe :fetcher github :repo "casouri/valign")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -180,7 +191,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   ;; dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -373,6 +384,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; (setq url-proxy-services
+      ;; '(("http"     . "http://127.0.0.1:1081")
+        ;; ("https"    . "http://127.0.0.1:1081")))
   (setq configuration-layer-elpa-archives
         '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
@@ -380,6 +394,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
+  (setq-default dotspacemacs-startup-banner '"~/Pictures/logo.png")
 )
 
 
@@ -396,8 +411,9 @@ you should place your code here."
   ;; (require 'pyim-basedict)
   ;; (pyim-basedict-enable)
   ;; (spacemacs//set-monospaced-font   "Source Code Pro"  14)
-
-  (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
+  ;; (global-set-key (C-SPC is undefinedbd "C-SPC") 'nil)
+  (setq python-python-command "/usr/bin/python3")
+  ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (setq exec-path (cons (expand-file-name "~/.pyenv/shims") exec-path))
   ;; (setq pyenv-installation-dir "~/.pyenv")
   ;; (require 'evil)
@@ -406,6 +422,9 @@ you should place your code here."
   ;; (require 'vterm-module)
   (setq lsp-enable-indentation nil)
   (setq lsp-enable-on-type-formatting nil)
+
+  (remove-hook 'prog-mode-hook 'auto-highlight-symbol-mode)
+  (remove-hook 'markdown-mode-hook 'auto-highlight-symbol-mode)
 
   (if (string= (system-name) "mingjiao")
     ;; (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
@@ -428,6 +447,22 @@ you should place your code here."
   (dired "~/SparkleShare/mynotes"))
 
   (spacemacs/set-leader-keys "on" 'mynotes)
+  (defun simulateroamheadersearch ()
+    (interactive)
+    ;; (helm-ag-ignore-buffer-patterns '("\\.html\\'" "\\.mkd\\'"))
+    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case --ignore-dir english -G\\.org")
+    ;; (dired "~/SparkleShare/mynotes")
+    ;; (setq helm-ag--default-directory "~/SparkleShare/mynotes")
+    ;; (setq helm-ag-use-agignore t)
+    ;; (helm-do-ag "~/SparkleShare/mynotes/")
+    (helm-do-ag "~/SparkleShare/mynotes/")
+    (setq helm-ag-base-command "ag --nocolor --nogroup")
+    ;; (switch-to-buffer (other-buffer (current-buffer) 1))
+    ;; (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+    ;; (helm-do-ag-project-root "~/SparkleShare/mynotes/")
+    )
+  (spacemacs/set-leader-keys "ors" 'simulateroamheadersearch)
+
 ;;  (eval-after-load 'dired
 ;;    '(progn
 ;;       (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
@@ -448,6 +483,11 @@ you should place your code here."
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (spacemacs/set-leader-keys "ols" 'save-my-layout)
   (setq plantuml-default-exec-mode 'jar)
+
+  ;; (server-start)
+  ;; (require 'org-protocol)
+  ;; (require 'org-roam-protocol)
+  ;; (org-roam-server-mode 1)
 
 
   (defun my-org-screenshot ()
@@ -474,11 +514,29 @@ same directory as the org-buffer and insert a link to this file."
     (delete-other-windows)
   )
 
-  (server-start)
+
+
+  ;; (server-start)
   (require 'org-protocol)
   (require 'org-roam-protocol)
-  (org-roam-server-mode 1)
+  ;; (org-roam-server-mode 1)
+  ;; (setq org-roam-directory "~/SparkleShare/mynotes")
+  ;; (setq org-roam-v2-ack t)
+  ;; (org-roam-setup)
 
+  ;; (setq org-roam-directory (file-truename "~/SparkleShare/mynotes"))
+  ;; (setq org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
+  ;; (setq org-roam-file-extensions '("org"))
+
+  ;; (setq org-id-link-to-org-use-id t)
+
+  ;; (setq org-roam-completion-everywhere t)
+
+  ;; ;; disable V1 to V2
+  ;; (setq org-roam-v2-ack t)
+
+  ;; (org-roam-setup)
+  (setq org-src-preserve-indentation t)
 
   (defun org-capture-template-goto-link ()
     (org-capture-put :target (list 'file+headline
@@ -605,7 +663,23 @@ same directory as the org-buffer and insert a link to this file."
         (cons '("*" '(:emphasis t :foreground "red"))
               (delete* "*" org-emphasis-alist :key 'car :test 'equal)))
 
-  (setq org-bullets-bullet-list '("🚀" "🛪" "🚉" "⛵" "🚌" "🚔" "🚲"))
+  ;; (with-eval-after-load 'org
+  ;;   (add-to-list 'org-modules 'org-protocol)
+  ;;   (setq org-capture-templates '(
+  ;;                                 ("p" "Protocol" entry (file+headline "~/SparkleShare/mynotes/GTD/chrome.org" "Inbox")
+  ;;                                  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+  ;;                                 ("L" "Protocol Link" entry (file+headline "~/SparkleShare/mynotes/GTD/chrome.org" "Inbox")
+  ;;                                  "* %? [[%:link][%:description]] \nCaptured On: %U"))))
+
+
+  ;; (with-eval-after-load 'org
+    ;; (org-babel-do-load-languages 'org-babel-load-languages '((latex . t)))
+  ;; )
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages (append org-babel-load-languages '((latex . t))))
+  )
+
+  ;; (setq org-bullets-bullet-list '("🚀" "🛪" "🚉" "⛵" "🚌" "🚔" "🚲"))
   ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (add-hook 'org-mode-hook 'org-fragtog-mode)
@@ -704,59 +778,44 @@ same directory as the org-buffer and insert a link to this file."
   ;;send mail
   (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/eaf/")
   (require 'eaf)
+  ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
+  ;; (require 'netease-cloud-music)
+  ;;;user-config
+  (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
+    (mu4e-alert-set-default-style 'notifications)) ; For linux
+
+;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/mails"
+        mu4e-trash-folder "/Deleted Messages"
+        mu4e-refile-folder "/Archive"
+        mu4e-sent-folder "/Sent Messages"
+        mu4e-drafts-folder "/Drafts"
+
+        ;; sync email from imap server
+        mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval 60
+        mu4e-compose-signature-auto-include t
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+
   (require 'smtpmail)
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.qq.com"
-        smtpmail-smtp-server "smtp.qq.com"
-        smtpmail-smtp-service 587)
+        user-mail-address  "tongchangjin@maxsense.ai"
+        user-full-name  "Tong ChangJin"
+        mu4e-compose-signature  (concat "TongChangJin\n\n"
+                                        "Email: tongchangjin@maxsense.ai\n\n"
+                                        "Website: www.maxsense.ai\n\n")
+        smtpmail-smtp-user  "tongchangjin@maxsense.ai"
+        ;; smtpmail-local-domain  "qq.com"
+        smtpmail-default-smtp-server "smtp.exmail.qq.com"
+        smtpmail-smtp-server "smtp.exmail.qq.com"
+        smtpmail-smtp-service 465
+        smtpmail-stream-type 'ssl)
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
 
-  ;; (load (expand-file-name ".mytoken.el.gpg" dotspacemacs-directory))
-   ;; :subscribed-channels '(general slackbot))
-;; (defvar my-mu4e-account-alist
-;;   '(("mail"
-;;      (mu4e-maildir "~/mail")
-;;      (user-mail-address "improve100@qq.com")
-;;      (smtpmail-smtp-user "improve100@qq.com")
-;;      )
-;;     ("msmail"
-;;      (mu4e-maildir "~/msmail")
-;;      (user-mail-address "tongchangjin@maxsense.ai")
-;;      (smtpmail-smtp-user "tongchangjin@maxsense.ai")
-;;      ))) 
 
-;; (defun my-mu4e-set-account ()
-;;   "Set the account for composing a message."
-;;   (interactive)
-;;   (let* ((account
-;;           (if mu4e-compose-parent-message
-;;               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-;;                 (string-match "/\\(.*?\\)/" maildir)
-;;                 (match-string 1 maildir))
-;;             (completing-read (format "Compose with account: (%s) "
-;;                                      (mapconcat #'(lambda (var) (car var))
-;;                                                 my-mu4e-account-alist "/"))
-;;                              (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-;;                              nil t nil nil (caar my-mu4e-account-alist))))
-;;          (account-vars (cdr (assoc account my-mu4e-account-alist))))
-;;     (if account-vars
-;;         (mapc #'(lambda (var)
-;;                   (set (car var) (cadr var)))
-;;               account-vars)
-;;       (error "No email account found"))))
-
-;; (add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account) 
-;;   (setq mu4e-view-show-images t)
- 
-;;   ;; save attachment to my desktop (this can also be a function)
-;;   (setq mu4e-attachment-dir "~/Downloads")
- 
-;;   ;; sync email from imap server
-;;   (setq mu4e-get-mail-command "offlineimap"
-;;         mu4e-update-interval 300)
-;;   ;; notifcation
-;;   (setq mu4e-enable-notifications t)
-;;   (mu4e-alert-enable-mode-line-display)
   (defun org-agenda-skip-scheduled-if-not-today ()
     "If this function returns nil, the current match should not be skipped.
 Otherwise, the function must return a position from where the search
@@ -831,8 +890,16 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bookmark-default-file "~/SparkleShare/mynotes/emacs/bookmarks")
  '(evil-want-Y-yank-to-eol nil)
- '(org-edit-src-content-indentation 0))
+ '(exec-path
+   '("/home/tong/.pyenv/shims" "/home/tong/.local/share/umake/bin" "/home/tong/bin" "/home/tong/.local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/snap/bin" "/usr/libexec/emacs/26.3/x86_64-pc-linux-gnu"))
+ '(mu4e-maildir "/home/maxsense/mails")
+ '(org-babel-python-command "~/.pyenv/shims/python3.8")
+ '(package-selected-packages
+   '(vmd-mode godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc flycheck-golangci-lint counsel-gtags company-go go-mode lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))
+ '(smtpmail-smtp-server "smtp.exmail.qq.com")
+ '(smtpmail-smtp-service 25))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

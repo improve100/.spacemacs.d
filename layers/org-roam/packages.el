@@ -63,8 +63,8 @@
         "ori" 'org-roam-node-insert
         "orf" 'org-roam-node-find
         "org" 'org-roam-graph
-        "oru" 'org-id-update-id-locations
         "ora" 'org-id-get-create
+        "oru" 'org-id-update-id-locations
         "orc" 'org-roam-capture)
 
       ;; (spacemacs/declare-prefix-for-mode 'org-mode "or" "org-roam")
@@ -73,6 +73,8 @@
         "ot" 'org-roam-dailies-today
         "of" 'org-roam-node-find
         "oi" 'org-roam-node-insert
+        "oa" 'org-id-get-create
+        "ou" 'org-id-update-id-locations
         "og" 'org-roam-graph
         "ou" 'org-id-update-id-locations
         "ora" 'org-id-get-create
