@@ -53,7 +53,7 @@
 
       (setq org-id-link-to-org-use-id t)
 
-      (setq org-roam-completion-everywhere t)
+      ;; (setq org-roam-completion-everywhere t)
 
       ;; disable V1 to V2
       (setq org-roam-v2-ack t)
@@ -63,6 +63,8 @@
         "ori" 'org-roam-node-insert
         "orf" 'org-roam-node-find
         "org" 'org-roam-graph
+        "oru" 'org-id-update-id-locations
+        "ora" 'org-id-get-create
         "orc" 'org-roam-capture)
 
       ;; (spacemacs/declare-prefix-for-mode 'org-mode "or" "org-roam")
@@ -72,6 +74,8 @@
         "of" 'org-roam-node-find
         "oi" 'org-roam-node-insert
         "og" 'org-roam-graph
+        "ou" 'org-id-update-id-locations
+        "ora" 'org-id-get-create
         "oc" 'org-roam-capture)
 
       (org-roam-setup)

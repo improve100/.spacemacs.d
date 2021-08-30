@@ -2,7 +2,42 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("perception_logic"
+(("snippets"
+ (filename . "~/.spacemacs.d/snippets/")
+ (front-context-string . "cmake-mode\n  drw")
+ (rear-context-string . " 7月  31 11:52   ")
+ (position . 254))
+("layers"
+ (filename . "~/.spacemacs.d/layers/")
+ (front-context-string . "org-roam\n  drwxr")
+ (rear-context-string . " 7月  31 11:52   ")
+ (position . 309))
+("mnt"
+ (filename . "/mnt/")
+ (front-context-string . "235\n  drwxr-xr-x")
+ (rear-context-string . " 3月  29 13:34   ")
+ (position . 351))
+("src"
+ (filename . "~/codes/autonomous_driving/src/")
+ (front-context-string . ".clang-format\n  ")
+ (rear-context-string . " 7月  31 13:59   ")
+ (position . 271))
+("ms_ins_src"
+ (filename . "~/3rdparty/OK1028-linux-fs/build/rfs/rootfs_lsdk2004_ubuntu_main_arm64/home/user/codes/autonomous_driving/src/")
+ (front-context-string . ".git\n  -rwxrwxrw")
+ (rear-context-string . " 8月   2 16:54   ")
+ (position . 340))
+("vehicle_params"
+ (filename . "~/codes/vehicle_params/")
+ (front-context-string . ".git\n  drwxrwxr-")
+ (rear-context-string . " 7月  31 14:03   ")
+ (position . 253))
+("Maps"
+ (filename . "~/codes/Maps/")
+ (front-context-string . ".svn\n  -rwxrwxr-")
+ (rear-context-string . " 7月  31 14:00   ")
+ (position . 243))
+("perception_logic"
  (filename . "~/codes/autonomous_driving/src/perception/logic/")
  (front-context-string . ".git\n  -rw-rw-r-")
  (rear-context-string . " 7月  31 16:40   ")

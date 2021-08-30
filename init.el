@@ -79,7 +79,9 @@ values."
      (markdown :variables markdown-live-preview-engine 'vmd)
      ;; markdown
      ;; org
-     (org :variables org-enable-roam-support t)
+     (org :variables
+          org-enable-roam-support t
+          org-src-tab-acts-natively nil)
      ;;lsp
      ;; ycmd
      yaml
@@ -126,12 +128,13 @@ values."
                                       request
                                       ;; cal-china-x
                                       ;; color-theme-solarized
+                                      (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
-                                      (netease-cloud-music :location (recipe :fetcher github :repo "SpringHan/netease-cloud-music.el"))
-                                      (valign :location (recipe :fetcher github :repo "casouri/valign"))
+                                      ;;(netease-cloud-music :location (recipe :fetcher github :repo "SpringHan/netease-cloud-music.el"))
+                                      ;;(valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
-                                      (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework"))
-                                      (valign :location (recipe :fetcher github :repo "casouri/valign")))
+                                      (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
+                                      ;;(valign :location (recipe :fetcher github :repo "casouri/valign")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -381,6 +384,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; (setq url-proxy-services
+      ;; '(("http"     . "http://127.0.0.1:1081")
+        ;; ("https"    . "http://127.0.0.1:1081")))
   (setq configuration-layer-elpa-archives
         '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
@@ -416,6 +422,9 @@ you should place your code here."
   ;; (require 'vterm-module)
   (setq lsp-enable-indentation nil)
   (setq lsp-enable-on-type-formatting nil)
+
+  (remove-hook 'prog-mode-hook 'auto-highlight-symbol-mode)
+  (remove-hook 'markdown-mode-hook 'auto-highlight-symbol-mode)
 
   (if (string= (system-name) "mingjiao")
     ;; (setq lsp-python-ms-executable (expand-file-name "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer"))
@@ -489,7 +498,9 @@ same directory as the org-buffer and insert a link to this file."
     (delete-other-windows)
   )
 
-  (server-start)
+
+
+  ;; (server-start)
   (require 'org-protocol)
   (require 'org-roam-protocol)
   ;; (org-roam-server-mode 1)
@@ -509,6 +520,7 @@ same directory as the org-buffer and insert a link to this file."
   ;; (setq org-roam-v2-ack t)
 
   ;; (org-roam-setup)
+  (setq org-src-preserve-indentation t)
 
   (defun org-capture-template-goto-link ()
     (org-capture-put :target (list 'file+headline
@@ -644,9 +656,13 @@ same directory as the org-buffer and insert a link to this file."
   ;;                                  "* %? [[%:link][%:description]] \nCaptured On: %U"))))
 
 
+  ;; (with-eval-after-load 'org
+    ;; (org-babel-do-load-languages 'org-babel-load-languages '((latex . t)))
+  ;; )
   (with-eval-after-load 'org
-    (org-babel-do-load-languages 'org-babel-load-languages '((latex . t)))
+    (org-babel-do-load-languages 'org-babel-load-languages (append org-babel-load-languages '((latex . t))))
   )
+
   ;; (setq org-bullets-bullet-list '("🚀" "🛪" "🚉" "⛵" "🚌" "🚔" "🚲"))
   ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
@@ -746,133 +762,44 @@ same directory as the org-buffer and insert a link to this file."
   ;;send mail
   (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/eaf/")
   (require 'eaf)
-  (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
-  (require 'netease-cloud-music)
-  ;; (require 'smtpmail)
-  ;; (setq message-send-mail-function 'smtpmail-send-it
-  ;;       smtpmail-stream-type 'starttls
-  ;;       smtpmail-default-smtp-server "smtp.qq.com"
-  ;;       smtpmail-smtp-server "smtp.qq.com"
-  ;;       smtpmail-smtp-service 587)
+  ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
+  ;; (require 'netease-cloud-music)
+  ;;;user-config
   (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
     (mu4e-alert-set-default-style 'notifications)) ; For linux
 
+;;; Set up some common mu4e variables
   (setq mu4e-maildir "~/mails"
+        mu4e-trash-folder "/Deleted Messages"
+        mu4e-refile-folder "/Archive"
+        mu4e-sent-folder "/Sent Messages"
+        mu4e-drafts-folder "/Drafts"
+
+        ;; sync email from imap server
         mu4e-get-mail-command "offlineimap"
         mu4e-update-interval 60
         mu4e-compose-signature-auto-include t
         mu4e-view-show-images t
         mu4e-view-show-addresses t)
+
   (require 'smtpmail)
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-stream-type 'starttls
+        user-mail-address  "tongchangjin@maxsense.ai"
+        user-full-name  "Tong ChangJin"
+        mu4e-compose-signature  (concat "TongChangJin\n\n"
+                                        "Email: tongchangjin@maxsense.ai\n\n"
+                                        "Website: www.maxsense.ai\n\n")
+        smtpmail-smtp-user  "tongchangjin@maxsense.ai"
+        ;; smtpmail-local-domain  "qq.com"
+        smtpmail-default-smtp-server "smtp.exmail.qq.com"
+        smtpmail-smtp-server "smtp.exmail.qq.com"
+        smtpmail-smtp-service 465
         smtpmail-stream-type 'ssl)
-
-  (setq mu4e-contexts
-    `( ,(make-mu4e-context
-    :name "Private"
-    :enter-func (lambda () (mu4e-message "Switch to the Private context"))
-    ;; leave-func not defined
-    :match-func (lambda (msg)
-      (when msg
-        (mu4e-message-contact-field-matches msg
-          :to "improve100@qq.com")))
-    :vars '(  (mu4e-drafts-folder . "/qq/Drafts")
-              (mu4e-sent-folder   . "/qq/Sent Messages")
-              (mu4e-trash-folder  . "/qq/Deleted Messages")
-              (mu4e-refile-folder . "/qq/Archive")
-              (mu4e-maildir-shortcuts . (("/qq/INBOX" . ?i)
-                                         ("/qq/Sent Messages"  . ?s)
-                                         ("/qq/Deleted Messages"   . ?t)))
-              (smtpmail-mail-address . "improve100@qq.com")
-       ( user-mail-address . "improve100@qq.com"  )
-       ( user-full-name     . "improve100" )
-       ( smtpmail-smtp-user . "improve100@qq.com" )
-       ;; smtpmail-local-domain  "qq.com"
-       ( smtpmail-default-smtp-server . "smtp.qq.com")
-       ( smtpmail-smtp-server . "smtp.qq.com")
-       ( smtpmail-smtp-service . 465)
-       ( mu4e-compose-signature .
-         (concat
-           "improve100\n\n"
-           "Email: improve100@qq.com\n\n"
-           "Shanghai\n\n"))))
-       ,(make-mu4e-context
-    :name "Work"
-    :enter-func (lambda () (mu4e-message "Switch to the Work context"))
-    ;; leave-fun not defined
-    :match-func (lambda (msg)
-      (when msg
-        (mu4e-message-contact-field-matches msg
-          :to "tongchangjin@maxsense.ai")))
-    :vars '(  (mu4e-drafts-folder . "/exmail/Drafts")
-              (mu4e-sent-folder   . "/exmail/Sent Messages")
-              (mu4e-trash-folder  . "/exmail/Deleted Messages")
-              (mu4e-refile-folder . "/exmail/Archive")
-              (mu4e-maildir-shortcuts . (("/exmail/INBOX" . ?i)
-                                         ("/exmail/Sent Messages"  . ?s)
-                                         ("/exmail/Deleted Messages"   . ?t)))
-              (smtpmail-mail-address . "tongchangjin@maxsense.ai")
-       ( user-mail-address      . "tongchangjin@maxsense.ai" )
-       ( user-full-name     . "TongChangJin" )
-       ( smtpmail-smtp-user . "tongchangjin@maxsense.ai" )
-       ;; smtpmail-local-domain  "qq.com"
-       ( smtpmail-default-smtp-server . "smtp.exmail.qq.com")
-       ( smtpmail-smtp-server . "smtp.exmail.qq.com")
-       ( smtpmail-smtp-service . 465)
-       ( mu4e-compose-signature .
-         (concat
-           "TongChangJin\n\n"
-           "Email: tongchangjin@maxsense.ai\n\n"
-           "website: www.maxsense.ai\n\n"))))))
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
 
 
-  ;; (load (expand-file-name ".mytoken.el.gpg" dotspacemacs-directory))
-   ;; :subscribed-channels '(general slackbot))
-;; (defvar my-mu4e-account-alist
-;;   '(("mail"
-;;      (mu4e-maildir "~/mail")
-;;      (user-mail-address "improve100@qq.com")
-;;      (smtpmail-smtp-user "improve100@qq.com")
-;;      )
-;;     ("msmail"
-;;      (mu4e-maildir "~/msmail")
-;;      (user-mail-address "tongchangjin@maxsense.ai")
-;;      (smtpmail-smtp-user "tongchangjin@maxsense.ai")
-;;      ))) 
-
-;; (defun my-mu4e-set-account ()
-;;   "Set the account for composing a message."
-;;   (interactive)
-;;   (let* ((account
-;;           (if mu4e-compose-parent-message
-;;               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-;;                 (string-match "/\\(.*?\\)/" maildir)
-;;                 (match-string 1 maildir))
-;;             (completing-read (format "Compose with account: (%s) "
-;;                                      (mapconcat #'(lambda (var) (car var))
-;;                                                 my-mu4e-account-alist "/"))
-;;                              (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-;;                              nil t nil nil (caar my-mu4e-account-alist))))
-;;          (account-vars (cdr (assoc account my-mu4e-account-alist))))
-;;     (if account-vars
-;;         (mapc #'(lambda (var)
-;;                   (set (car var) (cadr var)))
-;;               account-vars)
-;;       (error "No email account found"))))
-
-;; (add-hook 'mu4e-main-mode-hook 'my-mu4e-set-account) 
-;;   (setq mu4e-view-show-images t)
- 
-;;   ;; save attachment to my desktop (this can also be a function)
-;;   (setq mu4e-attachment-dir "~/Downloads")
- 
-;;   ;; sync email from imap server
-;;   (setq mu4e-get-mail-command "offlineimap"
-;;         mu4e-update-interval 300)
-;;   ;; notifcation
-;;   (setq mu4e-enable-notifications t)
-;;   (mu4e-alert-enable-mode-line-display)
   (defun org-agenda-skip-scheduled-if-not-today ()
     "If this function returns nil, the current match should not be skipped.
 Otherwise, the function must return a position from where the search
@@ -947,16 +874,20 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bookmark-default-file "~/.spacemacs.d/bookmarks")
+ '(bookmark-default-file "~/SparkleShare/mynotes/emacs/bookmarks")
  '(evil-want-Y-yank-to-eol nil)
  '(exec-path
    '("/home/tong/.pyenv/shims" "/home/tong/.local/share/umake/bin" "/home/tong/bin" "/home/tong/.local/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games" "/snap/bin" "/usr/libexec/emacs/26.3/x86_64-pc-linux-gnu"))
+ '(mu4e-maildir "/home/maxsense/mails")
+ '(org-babel-python-command "~/.pyenv/shims/python3.8")
  '(package-selected-packages
-   '(vmd-mode godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc flycheck-golangci-lint counsel-gtags company-go go-mode lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+   '(vmd-mode godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc flycheck-golangci-lint counsel-gtags company-go go-mode lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))
+ '(smtpmail-smtp-server "smtp.exmail.qq.com")
+ '(smtpmail-smtp-service 25))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 257)) (:foreground "#F8F8F2" :background "#272822")) (((class color) (min-colors 89)) (:foreground "#F5F5F5" :background "#1B1E1C")))))
+ )
 )
