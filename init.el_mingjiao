@@ -451,7 +451,8 @@ you should place your code here."
   (defun simulateroamheadersearch ()
     (interactive)
     ;; (helm-ag-ignore-buffer-patterns '("\\.html\\'" "\\.mkd\\'"))
-    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case --ignore-dir english -G\\.org")
+    ;; (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case --ignore-dir english -G\\.org")
+    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-dir english -G\\.org") ;;chinese no match
     ;; (dired "~/SparkleShare/mynotes")
     ;; (setq helm-ag--default-directory "~/SparkleShare/mynotes")
     ;; (setq helm-ag-use-agignore t)
