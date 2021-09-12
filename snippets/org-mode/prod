@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: prod
 # group: math
-# name: \sum
+# name: \prod
 # --
-
-\sum_{$1}^{$2}$0
+\prod $0

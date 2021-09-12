@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: diamond
 # group: math
-# name: \sum
+# name: \diamond
 # --
-
-\sum_{$1}^{$2}$0
+\diamond $0

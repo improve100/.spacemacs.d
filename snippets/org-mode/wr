@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: wr
 # group: math
-# name: \sum
+# name: \wr
 # --
-
-\sum_{$1}^{$2}$0
+\wr

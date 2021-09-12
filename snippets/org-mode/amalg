@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: amalg
 # group: math
-# name: \sum
+# name: \amalg
 # --
-
-\sum_{$1}^{$2}$0
+\amalg $0

@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: sqcap
 # group: math
-# name: \sum
+# name: \sqcap
 # --
-
-\sum_{$1}^{$2}$0
+\sqcap $0

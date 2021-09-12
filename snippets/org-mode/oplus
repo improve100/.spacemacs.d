@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: oplus
 # group: math
-# name: \sum
+# name: \oplus
 # --
-
-\sum_{$1}^{$2}$0
+\oplus $0

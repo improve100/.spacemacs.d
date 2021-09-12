@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: bigodot
 # group: math
-# name: \sum
+# name: \bigodot
 # --
-
-\sum_{$1}^{$2}$0
+\bigodot $0

@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: vee
 # group: math
-# name: \sum
+# name: \vee
 # --
-
-\sum_{$1}^{$2}$0
+\vee $0

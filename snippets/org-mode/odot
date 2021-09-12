@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: odot
 # group: math
-# name: \sum
+# name: \odot
 # --
-
-\sum_{$1}^{$2}$0
+\odot $0

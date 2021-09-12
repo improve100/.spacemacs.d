@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: ddagger
 # group: math
-# name: \sum
+# name: \ddagger
 # --
-
-\sum_{$1}^{$2}$0
+\ddagger $0

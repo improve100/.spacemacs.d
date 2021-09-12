@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: sqcup
+# group: math
+# name: \sqcup
+\sqcup $0

@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: int
 # group: math
-# name: \sum
+# name: \int
 # --
 
-\sum_{$1}^{$2}$0
+\int_{$1}^{$2}$0

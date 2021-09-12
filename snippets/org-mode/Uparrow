@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: Uparrow
 # group: math
-# name: \sum
+# name: \Uparrow
 # --
-
-\sum_{$1}^{$2}$0
+\Uparrow $0

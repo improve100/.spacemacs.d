@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: langle
 # group: math
-# name: \sum
+# name: \langle
 # --
-
-\sum_{$1}^{$2}$0
+\langle $0

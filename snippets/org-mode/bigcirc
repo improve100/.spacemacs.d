@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: bigcirc
 # group: math
-# name: \sum
+# name: \bigcirc
 # --
-
-\sum_{$1}^{$2}$0
+\bigcirc

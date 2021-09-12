@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bigwedge
+# group: math
+# name: \bigwedge
+# --
+\bigwedge $0

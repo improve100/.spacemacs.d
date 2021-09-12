@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: lceil
 # group: math
-# name: \sum
+# name: \lceil
 # --
-
-\sum_{$1}^{$2}$0
+\lceil $0

@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: lgroup
 # group: math
-# name: \sum
+# name: \lgroup
 # --
-
-\sum_{$1}^{$2}$0
+\lgroup $0

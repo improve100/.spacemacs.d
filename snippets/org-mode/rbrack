@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: rbrack
 # group: math
-# name: \sum
+# name: \rbrack
 # --
-
-\sum_{$1}^{$2}$0
+\rbrack $0

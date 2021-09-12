@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: downarrow
+# group: math
+# name: \downarrow
+# --
+\downarrow $0

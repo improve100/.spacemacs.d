@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# key: sum
+# key: bigcup
 # group: math
-# name: \sum
+# name: \bigcup
 # --
-
-\sum_{$1}^{$2}$0
+\bigcup $0

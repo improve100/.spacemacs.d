@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: brackslash
+# group: math
+# name: \brackslash
+# --
+\brackslash $0
