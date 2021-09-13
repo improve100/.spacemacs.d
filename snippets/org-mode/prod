@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: prod
 # group: math
-# name: \int
+# name: \prod
 # --
-\int^{$1}_{$2} $0
+\prod $0

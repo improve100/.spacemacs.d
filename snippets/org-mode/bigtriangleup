@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bigtriangleup
+# group: math
+# name: \bigtriangleup
+# --
+\bigtriangleup $0

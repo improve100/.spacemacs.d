@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: Arrowvert
+# group: math
+# name: \Arrowvert
+# --
+\Arrowvert $0

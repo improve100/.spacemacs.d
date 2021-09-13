@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: Uparrow
 # group: math
-# name: \int
+# name: \Uparrow
 # --
-\int^{$1}_{$2} $0
+\Uparrow $0

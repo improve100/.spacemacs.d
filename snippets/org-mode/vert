@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: vert
 # group: math
-# name: \int
+# name: \vert
 # --
-\int^{$1}_{$2} $0
+\vert $0

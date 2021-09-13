@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: bigvee
 # group: math
-# name: \int
+# name: \bigvee
 # --
-\int^{$1}_{$2} $0
+\bigvee

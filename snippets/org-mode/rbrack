@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: rbrack
 # group: math
-# name: \int
+# name: \rbrack
 # --
-\int^{$1}_{$2} $0
+\rbrack $0

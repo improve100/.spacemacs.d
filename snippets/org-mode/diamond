@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: diamond
 # group: math
-# name: \int
+# name: \diamond
 # --
-\int^{$1}_{$2} $0
+\diamond $0

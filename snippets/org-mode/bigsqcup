@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bigsqcup
+# group: math
+# name: \bigsqcup
+# --
+\bigsqcup $0

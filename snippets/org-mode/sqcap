@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: sqcap
 # group: math
-# name: \int
+# name: \sqcap
 # --
-\int^{$1}_{$2} $0
+\sqcap $0

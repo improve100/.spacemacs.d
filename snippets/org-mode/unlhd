@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: unlhd
 # group: math
-# name: \int
+# name: \unlhd
 # --
-\int^{$1}_{$2} $0
+\unlhd

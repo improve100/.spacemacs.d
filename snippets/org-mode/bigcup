@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: bigcup
 # group: math
-# name: \int
+# name: \bigcup
 # --
-\int^{$1}_{$2} $0
+\bigcup $0

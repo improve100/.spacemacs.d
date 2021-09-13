@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: ddagger
 # group: math
-# name: \int
+# name: \ddagger
 # --
-\int^{$1}_{$2} $0
+\ddagger $0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: odot
 # group: math
-# name: \int
+# name: \odot
 # --
-\int^{$1}_{$2} $0
+\odot $0

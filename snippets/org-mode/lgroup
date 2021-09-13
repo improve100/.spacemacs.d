@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: lgroup
 # group: math
-# name: \int
+# name: \lgroup
 # --
-\int^{$1}_{$2} $0
+\lgroup $0

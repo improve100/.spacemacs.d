@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: otimes
 # group: math
-# name: \int
+# name: \otimes
 # --
-\int^{$1}_{$2} $0
+\otimes $0

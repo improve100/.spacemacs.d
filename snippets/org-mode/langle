@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: langle
 # group: math
-# name: \int
+# name: \langle
 # --
-\int^{$1}_{$2} $0
+\langle $0

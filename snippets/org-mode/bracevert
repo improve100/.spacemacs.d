@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bracevert
+# group: math
+# name: \bracevert
+# --
+\bracevert $0

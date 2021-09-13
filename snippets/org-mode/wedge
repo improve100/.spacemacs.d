@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: wedge
 # group: math
-# name: \int
+# name: \wedge
 # --
-\int^{$1}_{$2} $0
+\wedge $0

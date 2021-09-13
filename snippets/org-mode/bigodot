@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: bigodot
 # group: math
-# name: \int
+# name: \bigodot
 # --
-\int^{$1}_{$2} $0
+\bigodot $0

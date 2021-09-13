@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bigotimes
+# group: math
+# name: \bigotimes
+# --
+\bigotimes $0

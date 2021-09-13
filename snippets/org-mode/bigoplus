@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: bigoplus
+# group: math
+# name: \bigoplus
+# --
+\bigoplus $0

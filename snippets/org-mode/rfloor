@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: rfloor
 # group: math
-# name: \int
+# name: \rfloor
 # --
-\int^{$1}_{$2} $0
+\rfloor $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: updownarrow
+# group: math
+# name: \updownarrow
+# --
+\updownarrow $0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: int
+# key: ominus
 # group: math
-# name: \int
+# name: \ominus
 # --
-\int^{$1}_{$2} $0
+\ominus $0
