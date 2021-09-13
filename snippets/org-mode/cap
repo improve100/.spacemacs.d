@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: cap
+# group: math
+# name: \cap{...}
+# --
+\cap $0

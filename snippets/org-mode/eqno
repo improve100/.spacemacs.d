@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: eqno
+# group: math
+# name: \eqno{...}
+# --
+\eqno($1)$0

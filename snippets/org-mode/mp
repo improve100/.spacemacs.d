@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: mp
+# group: math
+# name: \mp{...}
+# --
+\mp{$1}$0

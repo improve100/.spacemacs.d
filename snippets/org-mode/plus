@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: pm
+# group: math
+# name: \pm{...}
+# --
+\pm{$1}$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: triangleleft
+# group: math
+# name: \triangleleft{...}
+# --
+\triangleleft $0

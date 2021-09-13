@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: ast
+# group: math
+# name: \ast{...}
+# --
+\ast $0

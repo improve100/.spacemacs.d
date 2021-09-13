@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: times
+# group: math
+# name: \times{...}
+# --
+\times $0
