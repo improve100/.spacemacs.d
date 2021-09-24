@@ -408,6 +408,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq vc-follow-symlinks t)
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
   ;; (setenv "SHELL" "/bin/zsh")
   ;; (exec-path-from-shell-initialize)
@@ -671,6 +672,9 @@ same directory as the org-buffer and insert a link to this file."
              :empty-lines 1)
             ("e" "email" entry (file+headline "task.org" "email")
              "* TODO [#A] %?%a \t:email:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("f" "fix" entry (file+headline "task.org" "fix")
+             "* TODO [#A] %?%a \t:fix:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
              :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))

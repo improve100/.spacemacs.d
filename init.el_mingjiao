@@ -635,6 +635,12 @@ same directory as the org-buffer and insert a link to this file."
             ("o" "other" entry (file+headline "task.org" "others")
              "* TODO [#C] %? \t:other:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
+            ("e" "email" entry (file+headline "task.org" "email")
+             "* TODO [#A] %?%a \t:email:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("f" "fix" entry (file+headline "task.org" "fix")
+             "* TODO [#A] %?%a \t:fix:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
             ))
   (setq org-agenda-log-mode-items '(closed clock state))
 
