@@ -620,20 +620,35 @@ same directory as the org-buffer and insert a link to this file."
 
   (setq org-default-notes-file (concat org-directory "/task.org"))
   (setq org-capture-templates
-          '(("w" "work" entry (file+headline "task.org" "工作安排")
+          '(("W" "work" entry (file+headline "task.org" "工作安排")
              "* TODO [#A] %? \t:work:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("t" "tools" entry (file+headline "task.org" "tools")
+            ("w" "work by link" entry (file+headline "task.org" "工作安排")
+             "* TODO [#A] %?%a \t:work:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("T" "tools" entry (file+headline "task.org" "tools")
              "* TODO [#B] %? \t:tools:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("l" "learning" entry (file+headline "task.org" "learning")
+            ("t" "tools by link" entry (file+headline "task.org" "tools")
+             "* TODO [#A] %?%a \t:tools:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("L" "learning" entry (file+headline "task.org" "learning")
              "* TODO [#B] %? \t:learning:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("z" "threemen" entry (file+headline "task.org" "threemen")
+            ("l" "learning by link" entry (file+headline "task.org" "learning")
+             "* TODO [#A] %?%a \t:learning:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("Z" "threemen" entry (file+headline "task.org" "threemen")
              "* TODO [#B] %? \t:threemen:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
              :empty-lines 1)
-            ("o" "other" entry (file+headline "task.org" "others")
+            ("z" "threemen by link" entry (file+headline "task.org" "threemen")
+             "* TODO [#A] %?%a \t:threemen:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
+             :empty-lines 1)
+            ("O" "others" entry (file+headline "task.org" "others")
              "* TODO [#C] %? \t:other:\nSCHEDULED: <%<%Y-%m-%d %a>> \n"
+             :empty-lines 1)
+            ("o" "others by link" entry (file+headline "task.org" "others")
+             "* TODO [#A] %?%a \t:others:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
              :empty-lines 1)
             ("e" "email" entry (file+headline "task.org" "email")
              "* TODO [#A] %?%a \t:email:\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\")) \n"
