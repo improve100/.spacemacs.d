@@ -521,6 +521,19 @@ same directory as the org-buffer and insert a link to this file."
   ;; (server-start)
   (require 'org-protocol)
   (require 'org-roam-protocol)
+
+  (defun my/org-id-update-org-roam-files ()
+    "Update Org-ID locations for all Org-roam files."
+    (interactive)
+    (org-id-update-id-locations (org-roam--list-all-files)))
+
+  (defun my/org-id-update-id-current-file ()
+    "Scan the current buffer for Org-ID locations and update them."
+    (interactive)
+    (org-id-update-id-locations (list (buffer-file-name (current-buffer)))))
+
+
+
   ;; (org-roam-server-mode 1)
   ;; (setq org-roam-directory "~/SparkleShare/mynotes")
   ;; (setq org-roam-v2-ack t)
