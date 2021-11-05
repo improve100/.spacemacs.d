@@ -112,6 +112,7 @@ values."
                plantuml-jar-path plantumldir
                org-plantuml-jar-path plantumldir)
      (latex :variables latex-build-command "LaTeX")
+
      ;; yasnippet
      ;; (slack :variables slack-spacemacs-layout-name "@Slack"
             ;; slack-spacemacs-layout-binding "s")
@@ -133,6 +134,7 @@ values."
                                       ;; color-theme-solarized
                                       (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
+                                      (el-easydraw :location (recipe :fetcher github :repo "misohena/el-easydraw"))
                                       ;;(netease-cloud-music :location (recipe :fetcher github :repo "SpringHan/netease-cloud-music.el"))
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
@@ -417,6 +419,7 @@ you should place your code here."
   ;; (spacemacs//set-monospaced-font   "Source Code Pro"  14)
   ;; (global-set-key (C-SPC is undefinedbd "C-SPC") 'nil)
   (setq python-python-command "/usr/bin/python3")
+
   ;; (setenv "PYTHONPATH" "/opt/ros/kinetic/lib/python2.7/dist-packages")
   ;; (setq exec-path (cons (expand-file-name "~/.pyenv/shims") exec-path))
   ;; (setq pyenv-installation-dir "~/.pyenv")
@@ -517,7 +520,9 @@ same directory as the org-buffer and insert a link to this file."
     (delete-other-windows)
   )
 
-
+  (with-eval-after-load 'org
+    (require 'edraw-org)
+    (edraw-org-setup-default))
 
   ;; (server-start)
   (require 'org-protocol)
@@ -761,6 +766,33 @@ same directory as the org-buffer and insert a link to this file."
   ;; (add-hook 'org-mode-hook (lambda () (add-to-list 'helm-completing-read-handlers-alist '(org-set-tags))))
 
   ;; (add-hook 'org-mode-hook (lambda () (yas-load-directory (expand-file-name "~/.spacemacs.d/snippets/."))))
+
+
+    (setq org-latex-packages-alist '(("" "fontspec" t)))
+    (setq org-preview-latex-default-process 'imagemagick)
+
+    (setq org-preview-latex-process-alist
+          '(
+            (dvisvgm
+            :programs ("xelatex" "dvisvgm")
+            :description "xdv > svg"
+            :message "you need to install the programs: xelatex and dvisvgm."
+            :image-input-type "xdv"
+            :image-output-type "svg"
+            :image-size-adjust (1.7 . 1.5)
+            :latex-compiler ("xelatex --no-pdf -interaction nonstopmode -output-directory %o %f")
+            :image-converter ("dvisvgm %f -n -b min -c %S -o %O"))
+            (imagemagick
+            :programs ("latex" "convert")
+            :description "pdf > png"
+            :message "you need to install the programs: xelatex and imagemagick."
+            :image-input-type "pdf"
+            :image-output-type "png"
+            :image-size-adjust (1.0 . 1.0)
+            :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
+            :image-converter
+            ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+
 
   (setq org-refile-targets (list (cons nil (cons :maxlevel 1))))
 
