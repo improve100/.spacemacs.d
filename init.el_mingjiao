@@ -132,6 +132,7 @@ values."
                                       (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
                                       ;;(netease-cloud-music :location (recipe :fetcher github :repo "SpringHan/netease-cloud-music.el"))
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign"))
+                                      ;; (ox-latex-chinese :location (recipe :fetcher github :repo "zngtian/ox-latex-chinese"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
                                       (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign")))
@@ -718,6 +719,37 @@ same directory as the org-buffer and insert a link to this file."
   ;; (setq org-bullets-bullet-list '("🚀" "🛪" "🚉" "⛵" "🚌" "🚔" "🚲"))
   ;; (org-table ((t (:foreground "#6c71c4" :family "Ubuntu Mono"))))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
+  (setq org-latex-compiler "xelatex")
+  ;; (require 'ox-latex-chinese)
+  ;; (oxlc/toggle-ox-latex-chinese t)
+    (setq org-latex-packages-alist '(("" "fontspec" t)))
+    (setq org-preview-latex-default-process 'imagemagick)
+
+    (setq org-preview-latex-process-alist
+          '(
+            (dvisvgm
+            :programs ("xelatex" "dvisvgm")
+            :description "xdv > svg"
+            :message "you need to install the programs: xelatex and dvisvgm."
+            :image-input-type "xdv"
+            :image-output-type "svg"
+            :image-size-adjust (1.7 . 1.5)
+            :latex-compiler ("xelatex --no-pdf -interaction nonstopmode -output-directory %o %f")
+            :image-converter ("dvisvgm %f -n -b min -c %S -o %O"))
+            (imagemagick
+            :programs ("latex" "convert")
+            :description "pdf > png"
+            :message "you need to install the programs: xelatex and imagemagick."
+            :image-input-type "pdf"
+            :image-output-type "png"
+            :image-size-adjust (1.0 . 1.0)
+            :latex-compiler ("xelatex -interaction nonstopmode -output-directory %o %f")
+            :image-converter
+            ("convert -density %D -trim -antialias %f -quality 100 %O"))))
+
+
+
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   (add-hook 'org-mode-hook 'valign-mode)
   ;; (add-hook 'org-mode-hook 'ftable-mode)
