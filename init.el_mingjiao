@@ -7,8 +7,8 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (if (string= (system-name) "mingjiao")
-      (defvar plantumldir "/home/maxsense/bin/plantuml.jar")
-  (defvar plantumldir "/home/tong/bin/plantuml.jar"))
+      (defvar plantumldir "/home/maxsense/.bin/plantuml.jar")
+  (defvar plantumldir "/home/tong/.bin/plantuml.jar"))
 
   (if (string= (system-name) "mingjiao")
       ;; (defvar pythonlspdir "/media/maxsense/6605124a-f3c6-4ee5-97f8-0f616f6890f0/tong/3rdparty/python-language-server")
@@ -41,9 +41,9 @@ values."
    '(go
      html
      octave
-     php
+     ;; php
      dash
-     ;; javascript
+     javascript
      multiple-cursors
      ;; csv
      ;; javascript
@@ -114,10 +114,10 @@ values."
      ;; yasnippet
      ;; (slack :variables slack-spacemacs-layout-name "@Slack"
             ;; slack-spacemacs-layout-binding "s")
-     (mu4e :variables mu4e-installation-path "/usr/share/Emacs/site-lisp"
-           mu4e-enable-mode-line t
-           mu4e-enable-async-operations t
-           mu4e-enable-notifications t)
+     ;; (mu4e :variables mu4e-installation-path "/usr/share/Emacs/site-lisp"
+     ;;       mu4e-enable-mode-line t
+     ;;       mu4e-enable-async-operations t
+     ;;       mu4e-enable-notifications t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -134,6 +134,7 @@ values."
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign"))
                                       ;; (ox-latex-chinese :location (recipe :fetcher github :repo "zngtian/ox-latex-chinese"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
+                                      (emacsql-sqlite3 :location (recipe :fetcher github :repo "cireu/emacsql-sqlite3"))
                                       (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign")))
 
@@ -218,7 +219,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Ubuntu Mono"
-                               :size 13
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -388,12 +389,22 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (setq url-proxy-services
       ;; '(("http"     . "http://127.0.0.1:1081")
         ;; ("https"    . "http://127.0.0.1:1081")))
+
   (setq configuration-layer-elpa-archives
         '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
           ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+
+  ;; (setq package-archives '(("melpa"        . "https://melpa.org/packages/")
+  ;;                          ("melpa-stable" . "https://stable.melpa.org/packages/")
+  ;;                          ("org"          . "https://orgmode.org/elpa/")
+  ;;                          ("gnu"          . "https://elpa.gnu.org/packages/")
+  ;;                          ("nongnu"       . "https://elpa.nongnu.org/nongnu/")))
+
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+
 
   (setq-default dotspacemacs-startup-banner '"~/Pictures/logo.png")
 )
@@ -406,6 +417,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; (scroll-all-mode nil)
   (setq vc-follow-symlinks t)
   ;; (setenv "PYTHONPATH" "~/.pyenv/shims/python")
   ;; (setenv "SHELL" "/bin/zsh")
@@ -518,10 +531,14 @@ same directory as the org-buffer and insert a link to this file."
   )
 
 
-
+  ;; (setq org-roam-database-connector 'sqlite)
+  ;; (setq org-roam-db-update-method 'immediate) 
   ;; (server-start)
-  (require 'org-protocol)
-  (require 'org-roam-protocol)
+  ;; (require 'org-protocol)
+  ;; (require 'org-roam-protocol)
+  ;; (defun my/sleep (_)
+  ;;   (sleep-for 0 1))
+  ;; (advice-add 'org-roam-db-query :before 'my/sleep)
 
   (defun my/org-id-update-org-roam-files ()
     "Update Org-ID locations for all Org-roam files."
@@ -582,13 +599,13 @@ same directory as the org-buffer and insert a link to this file."
 
   (add-to-list 'org-capture-templates '("p" "Protocol"))
 
-  (setq compile-command "catkin build --this ")
+  (setq compile-command "catkin build --this -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=YES")
 
   (spacemacs/set-leader-keys "Fs" 'make-single-frame)
   ;;(spacemacs/set-leader-keys "og" 'mynotebookgit)
   ;; (define-key dired-mode-map (kbd "i") 'dired-kill-subdir)
-  (add-hook 'markdown-mode-hook 'leanote)
-  (setq leanote-api-root "https://leanote.threemen.tech/api")
+  ;; (add-hook 'markdown-mode-hook 'leanote)
+  ;; (setq leanote-api-root "https://leanote.threemen.tech/api")
 
   ;; (use-package dired-subtree :ensure t
   ;;   :after dired
@@ -603,6 +620,7 @@ same directory as the org-buffer and insert a link to this file."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   ;; (add-hook 'python-mode-hook 'anaconda-mode) ;; python completion
   (add-hook 'c++-mode-hook 'company-mode)
+  ;; (yas-global-mode)
   ;; (add-hook 'c++-mode-hook 'ycmd-mode)
   ;; (add-hook 'c-mode-hook 'ycmd-mode)
   (add-hook 'org-mode-hook (lambda ()
@@ -849,39 +867,39 @@ same directory as the org-buffer and insert a link to this file."
   ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
   ;; (require 'netease-cloud-music)
   ;;;user-config
-  (with-eval-after-load 'mu4e-alert
-    ;; Enable Desktop notifications
-    (mu4e-alert-set-default-style 'notifications)) ; For linux
+;;   (with-eval-after-load 'mu4e-alert
+;;     ;; Enable Desktop notifications
+;;     (mu4e-alert-set-default-style 'notifications)) ; For linux
 
-;;; Set up some common mu4e variables
-  (setq mu4e-maildir "~/mails"
-        mu4e-trash-folder "/Deleted Messages"
-        mu4e-refile-folder "/Archive"
-        mu4e-sent-folder "/Sent Messages"
-        mu4e-drafts-folder "/Drafts"
+;; ;;; Set up some common mu4e variables
+;;   (setq mu4e-maildir "~/mails"
+;;         mu4e-trash-folder "/Deleted Messages"
+;;         mu4e-refile-folder "/Archive"
+;;         mu4e-sent-folder "/Sent Messages"
+;;         mu4e-drafts-folder "/Drafts"
 
-        ;; sync email from imap server
-        mu4e-get-mail-command "offlineimap"
-        mu4e-update-interval 60
-        mu4e-compose-signature-auto-include t
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
+;;         ;; sync email from imap server
+;;         mu4e-get-mail-command "offlineimap"
+;;         mu4e-update-interval 60
+;;         mu4e-compose-signature-auto-include t
+;;         mu4e-view-show-images t
+;;         mu4e-view-show-addresses t)
 
-  (require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        user-mail-address  "tongchangjin@maxsense.ai"
-        user-full-name  "Tong ChangJin"
-        mu4e-compose-signature  (concat "TongChangJin\n\n"
-                                        "Email: tongchangjin@maxsense.ai\n\n"
-                                        "Website: www.maxsense.ai\n\n")
-        smtpmail-smtp-user  "tongchangjin@maxsense.ai"
-        ;; smtpmail-local-domain  "qq.com"
-        smtpmail-default-smtp-server "smtp.exmail.qq.com"
-        smtpmail-smtp-server "smtp.exmail.qq.com"
-        smtpmail-smtp-service 465
-        smtpmail-stream-type 'ssl)
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
+;;   (require 'smtpmail)
+;;   (setq message-send-mail-function 'smtpmail-send-it
+;;         smtpmail-stream-type 'starttls
+;;         user-mail-address  "tongchangjin@maxsense.ai"
+;;         user-full-name  "Tong ChangJin"
+;;         mu4e-compose-signature  (concat "TongChangJin\n\n"
+;;                                         "Email: tongchangjin@maxsense.ai\n\n"
+;;                                         "Website: www.maxsense.ai\n\n")
+;;         smtpmail-smtp-user  "tongchangjin@maxsense.ai"
+;;         ;; smtpmail-local-domain  "qq.com"
+;;         smtpmail-default-smtp-server "smtp.exmail.qq.com"
+;;         smtpmail-smtp-server "smtp.exmail.qq.com"
+;;         smtpmail-smtp-service 465
+;;         smtpmail-stream-type 'ssl)
+;;   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2")
 
 
   (defun org-agenda-skip-scheduled-if-not-today ()
@@ -966,6 +984,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-babel-python-command "~/.pyenv/shims/python3.8")
  '(package-selected-packages
    '(vmd-mode godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc flycheck-golangci-lint counsel-gtags company-go go-mode lispy zoutline powerline spinner org-plus-contrib hydra parent-mode projectile flx smartparens iedit anzu evil goto-chg undo-tree highlight pkg-info let-alist request epl bind-map bind-key f dash s helm avy helm-core popup ycmd request-deferred deferred cmake-ide levenshtein stm32 magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht dash-functional anaconda-mode pythonic wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel ivy names chinese-word-at-point org-category-capture alert log4e gntp gitignore-mode flyspell-correct pos-tip flycheck magit magit-popup git-commit ghub async with-editor company yasnippet auto-compile auto-complete macrostep elisp-slime-nav packed youdao-dictionary yapfify ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org swiper spaceline smeargle restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree mwim move-text monokai-theme mmm-mode markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md ggtags fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu dumb-jump disaster diminish define-word cython-mode company-ycmd company-statistics company-c-headers company-anaconda column-enforce-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-dictionary aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))
+ '(python-shell-interpreter "~/.local/bin/ipython")
  '(smtpmail-smtp-server "smtp.exmail.qq.com")
  '(smtpmail-smtp-service 25))
 (custom-set-faces
@@ -973,5 +992,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )

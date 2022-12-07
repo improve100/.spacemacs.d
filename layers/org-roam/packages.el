@@ -48,7 +48,7 @@
     (progn
       ;; (spacemacs/declare-prefix "aor" "org-roam")
       (setq org-roam-directory (file-truename "~/SparkleShare/mynotes"))
-      (setq org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
+      ;; (setq org-roam-db-location (expand-file-name ".cache/org-roam.db" user-emacs-directory))
       (setq org-roam-file-extensions '("org"))
 
       (setq org-id-link-to-org-use-id t)
