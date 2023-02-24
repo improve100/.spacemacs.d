@@ -130,6 +130,8 @@ values."
                                       request
                                       ;; cal-china-x
                                       ;; color-theme-solarized
+                                      (string-edit :location (recipe :fetcher github :repo "magnars/string-edit.el" :commit "d7c4b9db6c4987b5c022a9858e6302a4c53aff5f"))
+                                      (evil-ediff :location (recipe :fetcher github :repo "emacs-evil/evil-ediff"))
                                       (evil-magit :location (recipe :fetcher github :repo "emacs-evil/evil-magit"))
                                       (ob-async :location (recipe :fetcher github :repo "astahlman/ob-async"))
                                       (rustic :location (recipe :fetcher github :repo "brotzeit/rustic"))
@@ -488,6 +490,17 @@ you should place your code here."
     )
   (spacemacs/set-leader-keys "ors" 'simulateroamheadersearch)
 
+  (defun devdocs-search2 ()
+    "Search for QUERY in the DevDocs website."
+    (interactive)
+    (let ((devdocs-site-url "https://devdocs.io")
+          (query (if (use-region-p)
+                     (buffer-substring (region-beginning) (region-end))
+                   (thing-at-point 'symbol))))
+      (message "" devdocs-site-url)
+      (browse-url (format "%s/#q=%s" devdocs-site-url (url-hexify-string query)))))
+
+  (spacemacs/set-leader-keys "hbs" 'devdocs-search2)
 ;;  (eval-after-load 'dired
 ;;    '(progn
 ;;       (define-key dired-mode-map (kbd "c-i") 'dired-kill-subdir)))
@@ -941,6 +954,21 @@ should be continued."
              (not (= scheduled-day yesterday))
              subtree-end))))
 
+  (defun org-agenda-skip-scheduled-if-not-last-three-days ()
+    "If this function returns nil, the current match should not be skipped.
+Otherwise, the function must return a position from where the search
+should be continued."
+    (ignore-errors
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (scheduled-day
+             (time-to-days
+              (org-time-string-to-time
+               (org-entry-get nil "SCHEDULED"))))
+            (the-day-before-yesterday (- (time-to-days (current-time)) 5)))
+        (and scheduled-day
+             (not (> scheduled-day the-day-before-yesterday))
+             subtree-end))))
+
 
   ;; (add-to-list 'org-agenda-custom-commands
   ;;              '("0" agenda "Today's Scheduled"
@@ -969,6 +997,11 @@ should be continued."
                           (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-yesterday))
                           (org-agenda-entry-types '(:scheduled))
                           (org-agenda-overriding-header "Yesterday's Scheduled ")))
+          ("2" agenda "LastThreeDay's Scheduled"
+           ((org-agenda-span 'day)
+            (org-agenda-skip-function '(org-agenda-skip-scheduled-if-not-last-three-days))
+            (org-agenda-entry-types '(:scheduled))
+            (org-agenda-overriding-header "LastThreeDay's Scheduled ")))
           )))
   )
 
