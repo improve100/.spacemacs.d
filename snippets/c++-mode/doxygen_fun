@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: doxygen_fun @brief
+# uuid: doxygen_fun
+# key: doxygen_fun
+# --
+
+/**
+* @brief $0
+* @param param1  
+* @return 
+*/

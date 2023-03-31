@@ -113,6 +113,7 @@ values."
                plantuml-jar-path plantumldir
                org-plantuml-jar-path plantumldir)
      (latex :variables latex-build-command "LaTeX")
+     ;; (tabs :variables tabs-highlight-current-tab 'left)
      ;; yasnippet
      ;; (slack :variables slack-spacemacs-layout-name "@Slack"
             ;; slack-spacemacs-layout-binding "s")
@@ -141,6 +142,11 @@ values."
                                       ;; (ox-latex-chinese :location (recipe :fetcher github :repo "zngtian/ox-latex-chinese"))
                                       (org-fragtog :location (recipe :fetcher github :repo "io12/org-fragtog"))
                                       (emacsql-sqlite3 :location (recipe :fetcher github :repo "cireu/emacsql-sqlite3"))
+                                      (sis :location (recipe :fetcher github :repo "laishulu/emacs-smart-input-source"))
+                                      ;; (emacs-websocket :location (recipe :fetcher github :repo "ahyatt/emacs-websocket"))
+                                      ;; (deno-bridge :location (recipe :fetcher github :repo "manateelazycat/deno-bridge"))
+                                      ;; (insert-translated-name :location (recipe :fetcher github :repo "manateelazycat/insert-translated-name"))
+                                      (sort-tab :location (recipe :fetcher github :repo "manateelazycat/sort-tab"))
                                       (eaf :location (recipe :fetcher github :repo "manateelazycat/emacs-application-framework")))
                                       ;;(valign :location (recipe :fetcher github :repo "casouri/valign")))
 
@@ -729,7 +735,7 @@ same directory as the org-buffer and insert a link to this file."
   (require 'ob-async)
   (require 'org-tempo)
   (require 'cl)   ; for delete*
-  (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/valign/")
+  (add-to-list 'load-path "~/.emacs.default/.cache/quelpa/build/valign/")
   (require 'valign)   ; for delete*
   ;; (require 'ftable)   ; for delete*
   (setq org-emphasis-alist
@@ -884,8 +890,57 @@ same directory as the org-buffer and insert a link to this file."
   ;;       mu4e-compose-signature-auto-include t
   ;;       )
   ;;send mail
-  (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/eaf/")
+  ;; (require 'sis)
+  ;; (sis-ism-lazyman-config "1" "2" 'fcitx)
+  ;; (setq smart-input-source-other-input-source
+        ;; "com.sogou.inputmethod.sogou.pinyin")
+  (use-package sis
+    ;; :hook
+    ;; enable the /context/ and /inline region/ mode for specific buffers
+    ;; (((text-mode prog-mode) . sis-context-mode)
+    ;;  ((text-mode prog-mode) . sis-inline-mode))
+    :config
+    ;; For MacOS
+    (sis-ism-lazyman-config
+     ;; English input source may be: "ABC", "US" or another one.
+     ;; "com.apple.keylayout.ABC"
+     "com.apple.keylayout.US"
+     ;; Other language input source: "rime", "sogou" or another one.
+     ;; "im.rime.inputmethod.Squirrel.Rime"
+     "com.sogou.inputmethod.sogou.pinyin")
+    ;; enable the /cursor color/ mode
+    (sis-global-cursor-color-mode t)
+    ;; enable the /respect/ mode
+    (sis-global-respect-mode t)
+    ;; enable the /context/ mode for all buffers
+    (sis-global-context-mode t)
+    ;; enable the /inline english/ mode for all buffers
+    (sis-global-inline-mode t))
+
+  (add-to-list 'load-path "~/.emacs.default/.cache/quelpa/build/eaf/")
   (require 'eaf)
+
+  (add-to-list 'load-path "~/.emacs.default/.cache/quelpa/build/sort-tab/")
+  (require 'sort-tab)
+  (sort-tab-mode t)
+  ;; (global-set-key (kbd "s-1") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-2") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-3") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-4") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-5") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-6") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-7") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-8") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-9") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-0") 'sort-tab-select-visible-tab)
+  ;; (global-set-key (kbd "s-Q") 'sort-tab-close-all-tabs)
+  ;; (global-set-key (kbd "s-q") 'sort-tab-close-mode-tabs)
+  ;; (global-set-key (kbd "C-;") 'sort-tab-close-current-tab)
+
+  ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/deno-bridge/")
+  ;; (require 'deno-bridge)
+  ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/insert-translated-name/")
+  ;; (require 'insert-translated-name)
   ;; (add-to-list 'load-path "~/.emacs.d/.cache/quelpa/build/netease-cloud-music/")
   ;; (require 'netease-cloud-music)
   ;;;user-config
